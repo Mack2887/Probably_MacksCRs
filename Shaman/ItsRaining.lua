@@ -24,7 +24,7 @@ ProbablyEngine.rotation.register_custom(264, "Macks Resto Shaman v1", {
 { "52127", "!player.buff(52127)" },--Water Shield
 { "Healing Tide Totem", "modifier.lalt" },-- HTT
 { "Ascendance", "modifier.ralt" },--Ascendance
-{"98008",{"modifier.ralt"},"player"},--Spirit Link
+{"98008",{"modifier.rcontrol"},"player"},--Spirit Link
 { "Healing Rain",{"!player.moving","modifier.lcontrol"} , "mouseover.ground" },
 { "974", { "focus.buff(974).count < 2","focus.range >= 40", "player.spell(974).casted < 1" }, "focus" }, --Eaarth Shield
 { "974", { "tank.buff(974).count < 2", "tank.range >= 40", "player.spell(974).casted < 1" }, "tank" }, --Earth Shield
