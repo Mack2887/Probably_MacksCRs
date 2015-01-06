@@ -1,0 +1,11 @@
+## Interface: 60000
+## Title: Probably - |cff00FFFFMacksCRs
+## Notes: Macks Routines By Mack
+## Dependencies: Probably
+
+Druid\Bear.lua
+Druid\Resto.lua
+Mage\Fire.lua
+Monk\Mistweaver.lua
+Paladin\RetHelper.lua
+Priest\Holy.lua
