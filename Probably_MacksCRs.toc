@@ -9,3 +9,4 @@ Mage\Fire.lua
 Monk\Mistweaver.lua
 Paladin\RetHelper.lua
 Priest\Holy.lua
+Shaman\ItsRaining.lua
