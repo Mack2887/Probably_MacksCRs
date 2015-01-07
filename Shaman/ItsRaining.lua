@@ -26,8 +26,8 @@ ProbablyEngine.rotation.register_custom(264, "Macks Resto Shaman v1", {
 { "Ascendance", "modifier.ralt" },--Ascendance
 {"98008",{"modifier.rcontrol"},"player"},--Spirit Link
 { "Healing Rain",{"!player.moving","modifier.lcontrol"} , "mouseover.ground" },
-{ "974", { "focus.buff(974).count < 2","focus.range >= 40", "player.spell(974).casted < 1" }, "focus" }, --Eaarth Shield
-{ "974", { "tank.buff(974).count < 2", "tank.range >= 40", "player.spell(974).casted < 1" }, "tank" }, --Earth Shield
+{ "974", { "focus.buff(974).count < 2","focus.range <= 40", "player.spell(974).casted < 1" }, "focus" }, --Eaarth Shield
+{ "974", { "tank.buff(974).count < 2", "tank.range <= 40", "player.spell(974).casted < 1" }, "tank" }, --Earth Shield
 { "57994", "modifier.interrupt" },   --  Wind Shear
 {"79206",{"player.moving", "modifier.cooldowns", "!player.buff(79206)"}},--Spiritwalkers Gravce if Cooldown enabled and moving
 { "#trinket1","modifier.cooldowns" },
