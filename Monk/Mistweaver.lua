@@ -44,8 +44,6 @@ ProbablyEngine.rotation.register_custom(270, "MacksMW v5", {
  { "Expel Harm", {"lowest.health <= 100","player.chi < 4"}, "lowest" }, 
 
 --Dispells
--- {"!Detox", {"!lastcast","player.mana > 10","player.spell(Detox).casted < 1", "@coreHealing.needsDispelled('Corrupted Blood')" }, nil },
--- {"!Detox", {"!lastcast","player.mana > 10","player.spell(Detox).casted < 1", "@coreHealing.needsDispelled('Slow')"}, nil },
 {"Detox", {"!lastcast(Detox)","player.mana > 10","@coreHealing.needsDispelled('Corrupted Blood')" }, nil },
 {"Detox", {"!lastcast(Detox)","player.mana > 10","@coreHealing.needsDispelled('Slow')"}, nil },
 
@@ -108,7 +106,7 @@ ProbablyEngine.rotation.register_custom(270, "MacksMW v5", {
     { "!Renewing Mist", { "!player.spell(Uplift).casting","player.chi < 2", "@coreHealing.needsHealing(80, 5)" }, "tank" }, --ReM Need Chi
     --Need more Chi for uplift
     { "115175", {"lowest.health <= 100","!lastcast(115175)","!player.spell(Uplift).casting","!player.moving", "lowest.buff(115175).duration <= 1"}, "lowest" }, -- Soothing Mist
-    { "116694", {"player.mana >= 20","@coreHealing.needsHealing(85, 5)","lowest.health <= 90", "player.chi < 2"}, "lowest" }, -- Surging Mist
+    { "116694", {"player.mana >= 20","@coreHealing.needsHealing(85, 5)","lowest.health <= 90", "player.chi < 2","!lastcast(116694)"}, "lowest" }, -- Surging Mist
 
     }, "modifier.multitarget"},
     ----------------------!!!! AoE END !!!!---------------------------
@@ -122,16 +120,16 @@ ProbablyEngine.rotation.register_custom(270, "MacksMW v5", {
     { "!116680", {"lowest.health <= 60"} , "player" }, -- TFT
     { "!115175", {"lowest.health <= 60","!player.moving", "!lastcast(115175)","lowest.buff(115175).duration <= 1"}, "lowest" }, -- Soothing Mist
     { "124682", { "player.casting", "lowest.health <= 60", "player.chi > 2" }, "lowest" }, -- EnM
-    { "116694", { "player.casting", "lowest.health <= 60"}, "lowest" }, -- Surging Mist
+    { "116694", { "player.casting", "lowest.health <= 50"}, "lowest" }, -- Surging Mist
 
     { "!115175", {"lowest.health <= 80","!player.moving", "!lastcast(115175)","lowest.buff(115175).duration <= 1"}, "lowest" }, -- Soothing Mist
     { "124682", { "player.casting", "lowest.health <= 80", "player.chi > 2" }, "lowest" }, -- EnM
-    { "116694", { "player.casting", "lowest.health <= 80","!lastcast(116694)" }, "lowest" }, -- Surging Mist
+    { "116694", { "player.casting", "lowest.health <= 70","!lastcast(116694)" }, "lowest" }, -- Surging Mist
     { "!115175", {"tank.health <= 90","!player.moving", "!lastcast(115175)", "tank.buff(115175).duration <= 1"}, "tank" }, -- Soothing Mist
     { "124682", { "player.casting", "tank.health <= 90", "player.chi > 2" }, "tank" }, -- EnM
-    { "116694", { "player.casting", "tank.health <= 90", "!lastcast(116694)" }, "tank" }, -- Surging Mist
+    { "116694", { "player.casting", "tank.health <= 80", "!lastcast(116694)" }, "tank" }, -- Surging Mist
     
-    { "124682", { "player.casting", "lowest.health <= 92", "player.chi > 2" }, "lowest" }, -- EnM dump chi
+    { "124682", { "player.casting", "lowest.health <= 90", "player.chi > 2" }, "lowest" }, -- EnM dump chi
     {"!115175", { "lowest.health <= 100", "!player.moving", "lowest.buff(115175).duration <= 1"}, "lowest" }, --soothing
 
     
