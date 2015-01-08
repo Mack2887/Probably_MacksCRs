@@ -3,7 +3,7 @@
 --  Macks Beastly Bear   --
 ---------------------------
 
-ProbablyEngine.rotation.register_custom(104, "Macks BEAR v2", {
+ProbablyEngine.rotation.register_custom(104, "|cff00FFFFMacks|r - |cffFF7D0ABear v2|r", {
 
 
 
@@ -59,7 +59,7 @@ ProbablyEngine.rotation.register_custom(104, "Macks BEAR v2", {
 --   ACTIVE MITIGATION   --
 ---------------------------
 {{
-{"!62606", { "player.health <= 95", "!lastcast(62606)", "!player.buff(132402)", "target.target(player)"}},
+{"!62606", { "player.health <= 95", "!lastcast(62606)", "!player.buff(132402)", "target.threat > 100"}},
 
 {"Maul",{"player.buff(Tooth and Claw).count = 3", "target.range <= 6"},"target"},
 {"Maul",{"player.buff(Tooth and Claw)","player.rage >= 70","target.range <= 6"},"target"},
