@@ -7,6 +7,7 @@ Druid\Bear.lua
 Druid\Resto.lua
 Mage\Fire.lua
 Monk\Mistweaver.lua
+Paladin\Holy.lua
 Paladin\RetHelper.lua
 Priest\Holy.lua
 Shaman\ItsRaining.lua
