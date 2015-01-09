@@ -12,7 +12,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDResto v2|r]", {
+ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDResto v3|r]", {
 
 
 
@@ -35,6 +35,8 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 { "#trinket1","modifier.cooldowns" },
 { "#trinket2","modifier.cooldowns" },
 {"!Storm Elemental Totem",{"talent(7,2)","modifier.rshift"}},
+{"!2894",{"modifier.rshift"}}, 
+{"!2062",{"modifier.rshift"}}, 
 {{-- Primal Ele + Buffs
 {"!2894",{"modifier.rshift"}}, 
 {"!2062",{"modifier.rshift"}}, 
@@ -272,7 +274,7 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 ---------------------------
 --       ghost wolf!     --
 ---------------------------
-{"Ghost Wolf",{"player.movingfor >= 1", "!lastcast(Ghost Wolf)"},},
+{"Ghost Wolf",{"player.movingfor >= 1", "!lastcast(Ghost Wolf)","!player.buff(Spiritwalker's Grace)"},},
 {{
 { "/targetenemy [noexists]", "!target.exists" },
 { "/focus [@targettarget]",{ "target.enemy","target(target).friend" } },
