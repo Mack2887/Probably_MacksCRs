@@ -14,7 +14,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(257, "Macks Holy v1", {
+ProbablyEngine.rotation.register_custom(257, "|cff00FFFFMacks|r - [|cffFFFFFFHoly v1|r]", {
 
 
 
@@ -22,12 +22,6 @@ ProbablyEngine.rotation.register_custom(257, "Macks Holy v1", {
 ---------------------------
 --   CHAKRA MANAGEMENT  --
 ---------------------------
-{"Chakra: Sanctuary",{"player.stance != 2","toggle.AutoChakra","@coreHealing.needsHealing(90, 9)","player.spell(Chakra: Serenity).casted < 1"},},
-{"Chakra: Sanctuary",{"player.stance != 2","toggle.AutoChakra","@coreHealing.needsHealing(75, 6)","player.spell(Chakra: Serenity).casted < 1"},},
-{"Chakra: Sanctuary",{"player.stance != 2","toggle.AutoChakra","@coreHealing.needsHealing(50, 3)","player.spell(Chakra: Serenity).casted < 1"},},
-{"Chakra: Serenity",{"player.stance != 3","toggle.AutoChakra","!@coreHealing.needsHealing(90, 9)","player.spell(Chakra: Sanctuary).casted < 1"},},
-{"Chakra: Serenity",{"player.stance != 3","toggle.AutoChakra","!@coreHealing.needsHealing(75, 6)","player.spell(Chakra: Sanctuary).casted < 1"},},
-{"Chakra: Serenity",{"player.stance != 3","toggle.AutoChakra","!@coreHealing.needsHealing(50, 3)","player.spell(Chakra: Sanctuary).casted < 1"},},
 {"Chakra: Sanctuary",{"player.stance != 2","modifier.rshift"}},
 {"Chakra: Serenity",{"player.stance != 3","modifier.rshift"}},
 
@@ -43,8 +37,8 @@ ProbablyEngine.rotation.register_custom(257, "Macks Holy v1", {
 { "!32375", "modifier.rcontrol", "mouseover.ground" }, --Mass Dispell
 { "586", "target.threat >= 80" },-- Fade
 { "!64843", "modifier.lalt" },  --Divine Hymn
-{"724", "modifier.rcontrol", "mouseover.ground" }, --Lightwell
-{"!88685", "modifier.lshift","mouseover.ground" },  --Holy Word: Sanctuary
+{"724", "modifier.ralt", "mouseover.ground" }, --Lightwell
+{"!88685", "modifier.lcontrol","mouseover.ground" },  --Holy Word: Sanctuary
 ---------------------------
 --         MANA         --
 ---------------------------
@@ -63,8 +57,8 @@ ProbablyEngine.rotation.register_custom(257, "Macks Holy v1", {
 --        TIER 6        --
 ---------------------------
 { "121135", "lowest.health <= 92", "lowest" },  --Cascade
-{ "!120517", "modifier.lcontrol", "player" }, --Halo
-{ "!110744", "modifier.lcontrol", "player" }, --Divine Star
+{ "!120517", "modifier.lshift", "player" }, --Halo
+{ "!110744", "modifier.lshift", "player" }, --Divine Star
 
 
 ---------------------------
@@ -140,9 +134,9 @@ ProbablyEngine.rotation.register_custom(257, "Macks Holy v1", {
 ---------------------------
 --      Multi-HoTing     --
 ---------------------------
-{ "Renew", {"lowest.range <= 40", "!lowest.buff(Renew)", "lowest.health <= 95"}, "lowest" }, -- Renew.
-{ "Renew", {"focus.range <= 40", "!focus.buff(Renew)", "focus.health <= 95"}, "focus" }, -- Renew.
-{ "Renew", {"tank.range <= 40","!tank.buff(Renew)", "tank.health <= 95"}, "tank" }, -- Renew.
+{ "Renew", {"lowest.range <= 40", "!lowest.buff(Renew)", "lowest.health <= 88"}, "lowest" }, -- Renew.
+{ "Renew", {"focus.range <= 40", "!focus.buff(Renew)", "focus.health <= 92"}, "focus" }, -- Renew.
+{ "Renew", {"tank.range <= 40","!tank.buff(Renew)", "tank.health <= 92"}, "tank" }, -- Renew.
 {{ -- PARTY MODE
 { "Renew", { "party1.range <= 40","!party1.buff(Renew)", "party1.health <= 95"}, "party1" }, -- Renew.
 { "Renew", { "!player.buff(Renew)", "player.health <= 95" }, "player" }, -- Renew.
@@ -152,68 +146,52 @@ ProbablyEngine.rotation.register_custom(257, "Macks Holy v1", {
 { "Renew", { "party5.range <= 40","!party5.buff(Renew)", "party5.health <= 95"}, "party5" }, -- Renew.
 }, "!modifier.raid"},
 {{ --RAID MODE
-{ "Renew", { "raid1.range <= 40","!raid1.buff(Renew)", "raid1.health <= 92"}, "raid1" }, -- Renew.
+{ "Renew", { "raid1.range <= 40","!raid1.buff(Renew)", "raid1.health <= 85"}, "raid1" }, -- Renew.
 { "Renew", { "!player.buff(Renew)", "player.health <= 90" }, "player" }, -- Renew.
-{ "Renew", { "raid2.range <= 40","!raid2.buff(Renew)", "raid2.health <= 92"}, "raid2" }, -- Renew.
-{ "Renew", { "raid3.range <= 40","!raid3.buff(Renew)", "raid3.health <= 92"}, "raid3" }, -- Renew.
-{ "Renew", { "raid4.range <= 40","!raid4.buff(Renew)", "raid4.health <= 92"}, "raid4" }, -- Renew.
-{ "Renew", { "raid5.range <= 40","!raid5.buff(Renew)", "raid5.health <= 92"}, "raid5" }, -- Renew.
-{ "Renew", { "raid6.range <= 40","!raid6.buff(Renew)", "raid6.health <= 92"}, "raid6" }, -- Renew.
-{ "Renew", { "raid7.range <= 40","!raid7.buff(Renew)", "raid7.health <= 92"}, "raid7" }, -- Renew.
-{ "Renew", { "raid8.range <= 40","!raid8.buff(Renew)", "raid8.health <= 92"}, "raid8" }, -- Renew.
-{ "Renew", { "raid9.range <= 40","!raid9.buff(Renew)", "raid9.health <= 92"}, "raid9" }, -- Renew.
-{ "Renew", { "raid10.range <= 40","!raid10.buff(Renew)", "raid10.health <= 92"}, "raid10" }, -- Renew.
-{ "Renew", { "raid11.range <= 40","!raid11.buff(Renew)", "raid11.health <= 92"}, "raid11" }, -- Renew.
-{ "Renew", { "raid12.range <= 40","!raid12.buff(Renew)", "raid12.health <= 92"}, "raid12" }, -- Renew.
-{ "Renew", { "raid13.range <= 40","!raid13.buff(Renew)", "raid13.health <= 92"}, "raid13" }, -- Renew.
-{ "Renew", { "raid14.range <= 40","!raid14.buff(Renew)", "raid14.health <= 92"}, "raid14" }, -- Renew.
-{ "Renew", { "raid15.range <= 40","!raid15.buff(Renew)", "raid15.health <= 92"}, "raid15" }, -- Renew.
-{ "Renew", { "raid16.range <= 40","!raid16.buff(Renew)", "raid16.health <= 92"}, "raid16" }, -- Renew.
-{ "Renew", { "raid17.range <= 40","!raid17.buff(Renew)", "raid17.health <= 92"}, "raid17" }, -- Renew.
-{ "Renew", { "raid18.range <= 40","!raid18.buff(Renew)", "raid18.health <= 92"}, "raid18" }, -- Renew.
-{ "Renew", { "raid19.range <= 40","!raid19.buff(Renew)", "raid19.health <= 92"}, "raid19" }, -- Renew.
-{ "Renew", { "raid20.range <= 40","!raid20.buff(Renew)", "raid20.health <= 92"}, "raid20" }, -- Renew.
-{ "Renew", { "raid21.range <= 40","!raid21.buff(Renew)", "raid21.health <= 92"}, "raid21" }, -- Renew.
+{ "Renew", { "raid2.range <= 40","!raid2.buff(Renew)", "raid2.health <= 85"}, "raid2" }, -- Renew.
+{ "Renew", { "raid3.range <= 40","!raid3.buff(Renew)", "raid3.health <= 85"}, "raid3" }, -- Renew.
+{ "Renew", { "raid4.range <= 40","!raid4.buff(Renew)", "raid4.health <= 85"}, "raid4" }, -- Renew.
+{ "Renew", { "raid5.range <= 40","!raid5.buff(Renew)", "raid5.health <= 85"}, "raid5" }, -- Renew.
+{ "Renew", { "raid6.range <= 40","!raid6.buff(Renew)", "raid6.health <= 85"}, "raid6" }, -- Renew.
+{ "Renew", { "raid7.range <= 40","!raid7.buff(Renew)", "raid7.health <= 85"}, "raid7" }, -- Renew.
+{ "Renew", { "raid8.range <= 40","!raid8.buff(Renew)", "raid8.health <= 85"}, "raid8" }, -- Renew.
+{ "Renew", { "raid9.range <= 40","!raid9.buff(Renew)", "raid9.health <= 85"}, "raid9" }, -- Renew.
+{ "Renew", { "raid10.range <= 40","!raid10.buff(Renew)", "raid10.health <= 85"}, "raid10" }, -- Renew.
+{ "Renew", { "raid11.range <= 40","!raid11.buff(Renew)", "raid11.health <= 85"}, "raid11" }, -- Renew.
+{ "Renew", { "raid12.range <= 40","!raid12.buff(Renew)", "raid12.health <= 85"}, "raid12" }, -- Renew.
+{ "Renew", { "raid13.range <= 40","!raid13.buff(Renew)", "raid13.health <= 85"}, "raid13" }, -- Renew.
+{ "Renew", { "raid14.range <= 40","!raid14.buff(Renew)", "raid14.health <= 85"}, "raid14" }, -- Renew.
+{ "Renew", { "raid15.range <= 40","!raid15.buff(Renew)", "raid15.health <= 85"}, "raid15" }, -- Renew.
+{ "Renew", { "raid16.range <= 40","!raid16.buff(Renew)", "raid16.health <= 85"}, "raid16" }, -- Renew.
+{ "Renew", { "raid17.range <= 40","!raid17.buff(Renew)", "raid17.health <= 85"}, "raid17" }, -- Renew.
+{ "Renew", { "raid18.range <= 40","!raid18.buff(Renew)", "raid18.health <= 85"}, "raid18" }, -- Renew.
+{ "Renew", { "raid19.range <= 40","!raid19.buff(Renew)", "raid19.health <= 85"}, "raid19" }, -- Renew.
+{ "Renew", { "raid20.range <= 40","!raid20.buff(Renew)", "raid20.health <= 85"}, "raid20" }, -- Renew.
+{ "Renew", { "raid21.range <= 40","!raid21.buff(Renew)", "raid21.health <= 85"}, "raid21" }, -- Renew.
 }, "modifier.raid"},
 
 
 
 
---Dps Stance
+---------------------------
+--       DPS MODE       --
+---------------------------
 {{
-{ "!2061", { --Flash Heal
-	  "!player.moving",
-	  "lowest.health <= 30", 
-          "lowest.spell(2061).range" }, "lowest" },
-{ "34861", { --Circle of Healing
-        "lowest.spell(34861).cooldown < .001", 
-	 "@coreHealing.needsHealing(80, 3)", 
-         "lowest.spell(34861).range" }, "lowest" },
-{ "596", { --Prayer of Healing
-	  "!player.moving",
-	  "modifier.lalt",
-	  "lowest.spell(596).range"
-	}, "lowest" },
-{ "139", { --Renew
-	 "!lowest.buff(139)", 
-	  "lowest.health < 85", 
-        "lowest.spell(139).range" }, "lowest" },
-{ "32379", { -- SW: Death
-	   "target.health <= 20",}, "target" },
-{ "589", {  --SW: Pain
-          "target.debuff(589).duration < 2", 
-           "target.spell(589).range"}, "target" },
-{ "14914", { --Holy Fire
-	   "player.spell(129250).cooldown < .001",
-	   }, "target" },
-{ "585", { --Smite
-	   "player.mana > 30",	 }, "target"},
+{"Chakra: Chastise",{"player.stance != 1"}},
+{ "!2061", { "!player.moving", "lowest.health <= 30", "lowest.spell(2061).range" }, "lowest" },--Flash Heal
+{ "34861", { "lowest.spell(34861).cooldown < .001",  "@coreHealing.needsHealing(80, 3)", "lowest.spell(34861).range" }, "lowest" },--CoH
+{ "139", {  "!lowest.buff(139)",  "lowest.health < 85",  "lowest.spell(139).range" }, "lowest" },--Renew
+{ "589", { "target.debuff(589).duration < 2",  "target.spell(589).range"}, "target" },--SW:pain
+{ "14914", {  "player.spell(129250).cooldown < .001"  }, "target" },--Hoyl fire
+{ "585", {  "player.mana > 30" }, "target"}, -- Smite
 
 
-},  "player.buff(81209)"   },
+},  "toggle.Dps"  },
 
---End Dps
 
+---------------------------
+--  TARGETING AND FOCUS  --
+---------------------------
 {{
 { "/targetenemy [noexists]", "!target.exists" },
 { "/focus [@targettarget]", "target.enemy" },
@@ -225,39 +203,21 @@ ProbablyEngine.rotation.register_custom(257, "Macks Holy v1", {
 
 
 },{
- --Out of combat
+---------------------------
+--      OUT OF COMBAT    --
+---------------------------
+{ "1126", "!player.buffs.stamina" }, --stam
+{"724", "modifier.ralt", "mouseover.ground" }, --lightwell preplace  
+{"!88685", "modifier.lcontrol","mouseover.ground" },  --Holy Word: Sanctuary
+{"Chakra: Sanctuary",{"player.stance != 2","modifier.rshift"}},
+{"Chakra: Serenity",{"player.stance != 3","modifier.rshift"}},
 
---Fortitude
-{ "21562", "!player.buff(21562)" }, 
---Lightwell
-{"724", "modifier.rcontrol", "ground" },   
-
---circle of healing
-        { "34861", { 
-         "lowest.spell(34861).cooldown < .001", 
-	 "@coreHealing.needsHealing(99, 2)", 
-         "lowest.spell(34861).range" }, "lowest" },
-
---Renew  
-	{ "139", { 
-	  "!lowest.buff(139)", 
-	  "lowest.health <= 90",
-	  "lowest.spell(139).range"
-	}, "lowest"},
-
---Holy word: Serenity
-	{ "88625", {
-          "player.spell(88625).cooldown = 0", 
-	 "player.buff(81208)",
-      "lowest.health < 99",
-	  "lowest.spell(88625).range"
-	}, "lowest" },
 
 
 },function()
 
 
-ProbablyEngine.toggle.create('AutoChakra', 'Interface\\Icons\\spell_priest_chakra', 'Auto Chakra','Auto Chakra Swap for Healing')
+ProbablyEngine.toggle.create('Dps', 'Interface\\Icons\\spell_shadow_demonicfortitude', 'DPS MODE','Switch to Chakra Chastise')
 ProbablyEngine.toggle.create('AutoTarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target/Focus','Auto Target Boss and Focus Active Tank')
 
 
