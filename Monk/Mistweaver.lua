@@ -49,7 +49,7 @@ ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96Mis
 {"!115313", "modifier.rcontrol", "mouseover.ground" }, --statue
 { "#trinket1" },
 { "#trinket2" },
-
+{ "!123986", "modifier.lcontrol", "player" },  --chi burst
 
 
 ---------------------------
@@ -232,7 +232,7 @@ ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96Mis
 { "Expel Harm", {"lowest.health <= 100","player.chi < 4"}, "lowest" }, 
 {"Chi Brew",{"!lastcast(Chi Brew)", "talent(3,3)", "player.chi <= 2", "@coreHealing.needsHealing(80, 5)" },"player"}, 
 {"Chi Brew",{"!lastcast(Chi Brew)", "player.spell(Chi Brew).charges > 1","talent(3,3)", "player.chi <= 2","@coreHealing.needsHealing(95, 5)"},"player"}, 
-{ "!123986", "modifier.lcontrol", "player" },  --chi burst
+
 { "124081", {"lowest.health <= 90"}, "lowest" }, --zen shpere
 { "Chi Wave",{"lowest.health <= 100 "}, "lowest" }, --chi wave
 
@@ -413,6 +413,7 @@ ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96Mis
 
 --!!!!!!!!!!!!!!!         CRANE STANCE DPS          !!!!!!!!!!!!!!!!!!!!!!
   {{
+  { "Expel Harm", {"lowest.health <= 100","player.chi < 4"}, "lowest" }, 
   { "Surging Mist", {"player.buff(Vital Mists).count = 5"},"lowest" },
   {"Tiger Palm", {"player.buff(Vital Mists.count = 4", "player.chi > 0" }},
   { "Rising Sun Kick", {"target.debuff(130320).duration < 5", "player.chi > 1"} },
