@@ -12,7 +12,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly v1|r]", {
+ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly v1.1|r]", {
 
 
 
