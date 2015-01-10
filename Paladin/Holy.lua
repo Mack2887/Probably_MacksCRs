@@ -25,9 +25,10 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 { "20217", {"!player.buffs.stats" ,"toggle.Blessing" }, "player" },--Lings
 { "19740", { "!player.buffs.mastery" ,"!toggle.Blessing" }, "player" },--Might
 { "20165", {  "player.seal != 2"}, "player" }, --Seal of Insight
-{"Beacon of Light",{"!tank.buff(Beacon of Light)","!tank.buff(Beacon of Faith)","player.spell(Beacon of Light).casted < 0"},"tank"},
-{"Beacon of Faith",{"!tank.buff(Beacon of Light)","!tank.buff(Beacon of Faith)","player.spell(Beacon of Faith).casted < 0", "talent(7,1)"},"tank"},
-
+{"156910",{"!tank.buff(53563)","!tank.buff(156910)", "talent(7,1)","!lastcast(156910)","player.spell(156910).casted < 1"},"tank"},
+{"53563",{"!tank.buff(53563)","!tank.buff(156910)", "!lastcast(53563)","player.spell(53563).casted < 1"},"tank"},
+--BoL buff  53563
+--Bof buff 156910
 
 ---------------------------
 --       MODIFIERS     --
@@ -40,13 +41,15 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 ---------------------------
 --       SURVIVAL        --
 ---------------------------
-{ "!108271", { "player.health <= 45", "talent(1,3)" }, "player" },--Astral shift
-{ "!108270", { "player.health <= 45","talent(1,2)" }, "player" },--Bulwark Totem
-{ "#5512", "player.health <= 35" },  --healthstone
+{ "!Divine Shield", { "player.health <= 15" }, "player" },
+{ "Divine Protection", { "player.health <= 45" }, "player" },
+{ "#5512", "player.health <= 35","player" },  --healthstone
 { "Stoneform", "player.health <= 65" },
 { "Gift of the Naaru", "player.health <= 70", "player" },
 {"!633",{"tank.health <= 20", "modifier.cooldowns"},"tank"}, --Lay on Hands
 {"!633",{"lowest.health <= 15", "modifier.cooldowns"},"lowest"},
+{ "Arcane Torrent", {"@coreHealing.needsHealing(85,5)","player.holypower <= 2","player.spell(Holy Shock).cooldown > 1"},"player" },
+
 ---------------------------
 --       DISPELLS        --
 ---------------------------
@@ -109,11 +112,11 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 ---------------------------
 --      EMERGENCY/Proc   --
 ---------------------------
-{"Execution Sentence",{"tank.health <= 80", "tank.range <= 40", "talent(6,3)"},"tank"},
-{"Execution Sentence",{"lowest.health <= 70", "lowest.range <= 40","talent(6,3)"},"lowest"},
-{"Holy Prism",{"@coreHealing.needsHealing(94,5)", "target.range <= 40", "talent(6,1)"},"target"},
-{"Flash of Light",{"!player.moving","tank.health <= 40", "tank.range <= 40","player.holypower < 3","player.spell(Holy Shock).cooldown > 1"},"tank"},
-{"Flash of Light",{"!player.moving","lowest.health <= 30", "lowest.range <= 40","player.holypower < 3","player.spell(Holy Shock).cooldown > 1"},"lowest"},
+{"Execution Sentence",{"tank.health <= 80", "tank.range <= 40", "talent(6,3)","player.spell(Holy Shock).cooldown > 1"},"tank"},
+{"Execution Sentence",{"lowest.health <= 70", "lowest.range <= 40","talent(6,3)","player.spell(Holy Shock).cooldown > 1"},"lowest"},
+{"Holy Prism",{"@coreHealing.needsHealing(94,5)", "target.range <= 40", "talent(6,1)","player.spell(Holy Shock).cooldown > 1"},"target"},
+{"Flash of Light",{"!player.moving","tank.health <= 40", "tank.range <= 40","player.spell(Holy Shock).cooldown > 1"},"tank"},
+{"Flash of Light",{"!player.moving","lowest.health <= 30", "lowest.range <= 40","player.spell(Holy Shock).cooldown > 1"},"lowest"},
 
 
 ---------------------------
@@ -124,18 +127,24 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 --105809 Holy avenger
 {"Light of Dawn",{"!player.moving","@coreHealing.needsHealing(95, 4)", "lowest.range <= 40","player.buff(86172)"},"lowest"},
 
-{"Sacred Shield",{"!lastcast(Sacred Shield)","tank.buff(148039).duration <= 5","tank.range <= 40" },"tank"},
-{"Sacred Shield",{"!lastcast(Sacred Shield)","lowest.range <= 40", "lowest.buff(148039).duration <= 5","player.spell(Sacred Shield).charges >= 1"},"lowest"},
+{"Sacred Shield",{"player.spell(Holy Shock).cooldown > 1","!lastcast(Sacred Shield)","tank.buff(148039).duration <= 5","tank.range <= 40", "tank.health <= 95" },"tank"},
+{"Sacred Shield",{"player.spell(Holy Shock).cooldown > 1","!lastcast(Sacred Shield)","lowest.range <= 40", "lowest.buff(148039).duration <= 5","player.spell(Sacred Shield).charges >= 1", "lowest.health <= 90"},"lowest"},
 {"Light of Dawn",{"!player.moving","player.holypower == 5","@coreHealing.needsHealing(95, 4)", "lowest.range <= 40"},"lowest"},
-{"Light of Dawn",{"!player.moving","player.holypower >= 3","@coreHealing.needsHealing(85, 5)", "lowest.range <= 40"},"lowest"},
-{"Holy Shock",{"lowest.health <= 90", "lowest.range <= 40", "player.holypower < 5","!player.buff(105809)"},"lowest"},
-{"Holy Shock",{"lowest.health <= 90", "lowest.range <= 40", "player.holypower < 3","player.buff(105809)"},"lowest"},
-{"Holy Radiance",{"@coreHealing.needsHealing(80, 4)","player.holypower < 5","!player.buff(105809)"},"lowest"},
-{"Holy Radiance",{"@coreHealing.needsHealing(80, 4)","player.holypower < 3","!player.buff(105809)"},"lowest"},
-{"Holy Light",{"lowest.health <= 90","lowest.range <= 40", "!player.moving"},"lowest"},
+{"Light of Dawn",{"!player.moving","player.holypower >= 3","@coreHealing.needsHealing(88, 5)", "lowest.range <= 40"},"lowest"},
+{"Holy Shock",{"lowest.health <= 95", "lowest.range <= 40", "player.holypower < 5","!player.buff(105809)"},"lowest"},
+{"Holy Shock",{"lowest.health <= 95", "lowest.range <= 40", "player.holypower < 3","player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(60, 5)","player.holypower < 5","!player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(60, 5)","player.holypower < 3","player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","player.buff(54149)","@coreHealing.needsHealing(80, 5)","player.holypower < 5","!player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","player.buff(54149)","@coreHealing.needsHealing(80, 5)","player.holypower < 3","player.buff(105809)"},"lowest"},
+{"Word of Glory",{"!@coreHealing.needsHealing(95, 4)","player.holypower = 5","lowest.health <= 77","lowest.range <= 40", "!player.moving"},"lowest"},
+{"Word of Glory",{"!@coreHealing.needsHealing(95, 4)","player.holypower = 5","lowest.health <= 88","tank.range <= 40", "!player.moving"},"tank"},
+{"Holy Light",{"lowest.health <= 75","lowest.range <= 40", "!player.moving","player.spell(Holy Shock).cooldown > 1"},"lowest"},
+{"Holy Light",{"tank.health <= 88","tank.range <= 40", "!player.moving","player.spell(Holy Shock).cooldown > 1"},"tank"},
+
 },"talent(3,3)"},--End SS CR
 
-
+--54149 iNFUSION OF LIGHT
 
 
 
