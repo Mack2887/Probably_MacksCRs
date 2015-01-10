@@ -3,7 +3,7 @@
 --  Macks Beastly Bear   --
 ---------------------------
 
-ProbablyEngine.rotation.register_custom(104, "|cff00FFFFMacks|r - [|cffFF7D0ABear v2|r]", {
+ProbablyEngine.rotation.register_custom(104, "|cff00FFFFMacks|r - [|cffFF7D0ABear v2.1|r]", {
 
 
 
