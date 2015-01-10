@@ -3,7 +3,7 @@
 --   Macks Pyromania    --
 ---------------------------
 
-ProbablyEngine.rotation.register_custom(63, "Mack Fire v2", {
+ProbablyEngine.rotation.register_custom(63, "Mack Fire v2.1", {
 
 
 -- Pause for Invis
