@@ -14,7 +14,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96MistWeaver v6|r]", {
+ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96MistWeaver v6.1|r]", {
 
 --fix: Focus and Life Cocoon
 --fix clipping of Uplift
