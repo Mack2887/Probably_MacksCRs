@@ -101,8 +101,8 @@ ProbablyEngine.rotation.register_custom(262, "|cff00FFFFMacks|r - [|cff0000CDELE
 { "Lightning Shield",{"!player.buff(Lightning Shield)" },"player"},
 {"#109218",{"modifier.lcontrol"},"player"},
 {"Unleash Flame",{"modifier.lcontrol"},"player"},
-{ "Storm Elemental Totem",{"modifier.lcontrol","talent()"},"player" },
-{ "Fire Elemental Totem",{"modifier.lcontrol","!talent()"},"player" },
+{ "Storm Elemental Totem",{"modifier.lcontrol","talent(7,2)"},"player" },
+{ "Fire Elemental Totem",{"modifier.lcontrol","!talent(7,2)"},"player" },
 {"Earthquake", {"modifier.lcontrol","!player.moving"}, "target.ground" },
 
 }, function()
