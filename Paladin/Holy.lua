@@ -12,12 +12,11 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly v1.1|r]", {
-
-
+ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly v1.2|r]", {
 
 
 --{"",{""},""},
+
 
 ---------------------------
 --Blessings/Buffs/BEACON --
@@ -25,8 +24,8 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 { "20217", {"!player.buffs.stats" ,"toggle.Blessing" }, "player" },--Lings
 { "19740", { "!player.buffs.mastery" ,"!toggle.Blessing" }, "player" },--Might
 { "20165", {  "player.seal != 2"}, "player" }, --Seal of Insight
-{"156910",{"!tank.buff(53563)","!tank.buff(156910)", "talent(7,1)","!lastcast(156910)","player.spell(156910).casted < 1"},"tank"},
-{"53563",{"!tank.buff(53563)","!tank.buff(156910)", "!lastcast(53563)","player.spell(53563).casted < 1"},"tank"},
+{"156910",{"tank.agro","!tank.buff(53563)","!tank.buff(156910)", "talent(7,1)","!lastcast(156910)","player.spell(156910).casted < 1"},"tank"},
+{"53563",{"tank.agro","!tank.buff(53563)","!tank.buff(156910)", "!lastcast(53563)","player.spell(53563).casted < 1"},"tank"},
 --BoL buff  53563
 --Bof buff 156910
 
@@ -62,8 +61,8 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 -- HANDS/Emergency     --
 -------------------------
 {{
-{ "!Hand of Protection", {"!lastcast(Hand of Protection)","!player.buff", "player.health <= 15" }, "player" },
-{ "!Hand of Protection", {"!lastcast(Hand of Protection)","!lowest.buff", "lowest.health <= 10" }, "lowest" },
+{ "!Hand of Protection", {"!lastcast(Hand of Protection)","!player.buff", "player.health <= 10" }, "player" },
+{ "!Hand of Protection", {"!target.target(lowest)","!lastcast(Hand of Protection)","!lowest.buff", "lowest.health <= 10" }, "lowest" },
 { "!Hand of Sacrifice", {"!lastcast(Hand of Sacrifice)","!player.buff", "tank.health <= 45" }, "tank" },
 { "!Hand of Sacrifice", {"!lastcast(Hand of Sacrifice)","!lowest.buff", "lowest.health <= 25" }, "lowest" },
 
@@ -112,11 +111,30 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 ---------------------------
 --      EMERGENCY/Proc   --
 ---------------------------
+{{
+{"Flash of Light",{"!player.moving","tank.health <= 60", "tank.range <= 40","player.spell(Holy Shock).cooldown > 1"},"tank"},
+{"Flash of Light",{"!player.moving","lowest.health <= 50", "lowest.range <= 40","player.spell(Holy Shock).cooldown > 1"},"lowest"},
+{"Flash of Light",{"!player.moving","tank.health <= 50", "tank.range <= 40","player.holypower = 5"},"tank"},
+{"Flash of Light",{"!player.moving","lowest.health <= 40", "lowest.range <= 40","player.holypower = 5"},"lowest"},
+{"Flash of Light",{"!player.moving","tank.health <= 40", "tank.range <= 40"},"tank"},
+{"Flash of Light",{"!player.moving","lowest.health <= 30", "lowest.range <= 40"},"lowest"},
+},"!modifier.raid"},
+
+{"Holy Shock",{"lowest.health <= 96", "lowest.range <= 40", "player.holypower < 5","!player.buff(105809)"},"lowest"},
+{"Holy Shock",{"lowest.health <= 96", "lowest.range <= 40", "player.holypower < 3","player.buff(105809)"},"lowest"},
+
 {"Execution Sentence",{"tank.health <= 80", "tank.range <= 40", "talent(6,3)","player.spell(Holy Shock).cooldown > 1"},"tank"},
 {"Execution Sentence",{"lowest.health <= 70", "lowest.range <= 40","talent(6,3)","player.spell(Holy Shock).cooldown > 1"},"lowest"},
-{"Holy Prism",{"@coreHealing.needsHealing(94,5)", "target.range <= 40", "talent(6,1)","player.spell(Holy Shock).cooldown > 1"},"target"},
+{"Holy Prism",{"@coreHealing.needsHealing(95,3)", "target.range <= 40", "talent(6,1)","target.enemy"},"target"},
+{"Execution Sentence",{"tank.health <= 80", "tank.range <= 40", "talent(6,3)","player.holypower = 5"},"tank"},
+{"Execution Sentence",{"lowest.health <= 70", "lowest.range <= 40","talent(6,3)","player.holypower = 5"},"lowest"},
+{"Holy Prism",{"@coreHealing.needsHealing(95,5)", "target.range <= 40", "talent(6,1)","player.holypower = 5"},"target"},
+
 {"Flash of Light",{"!player.moving","tank.health <= 40", "tank.range <= 40","player.spell(Holy Shock).cooldown > 1"},"tank"},
 {"Flash of Light",{"!player.moving","lowest.health <= 30", "lowest.range <= 40","player.spell(Holy Shock).cooldown > 1"},"lowest"},
+
+{"Flash of Light",{"!player.moving","tank.health <= 40", "tank.range <= 40","player.holypower = 5"},"tank"},
+{"Flash of Light",{"!player.moving","lowest.health <= 30", "lowest.range <= 40","player.holypower = 5"},"lowest"},
 
 
 ---------------------------
@@ -125,26 +143,38 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 {{--Start SS CR
   --148039 Sacred shield buff
 --105809 Holy avenger
-{"Light of Dawn",{"!player.moving","@coreHealing.needsHealing(95, 4)", "lowest.range <= 40","player.buff(86172)"},"lowest"},
-
-{"Sacred Shield",{"player.spell(Holy Shock).cooldown > 1","!lastcast(Sacred Shield)","tank.buff(148039).duration <= 5","tank.range <= 40", "tank.health <= 95" },"tank"},
+{"Light of Dawn",{"!player.moving","@coreHealing.needsHealing(96,2)", "lowest.range <= 40","player.buff(90174)"},"tank"},
+--add agro too SS
+{"Sacred Shield",{"player.spell(Holy Shock).cooldown > 1","!lastcast(Sacred Shield)","tank.buff(148039).duration <= 5","tank.range <= 40", "tank.health <= 99" },"tank"},
 {"Sacred Shield",{"player.spell(Holy Shock).cooldown > 1","!lastcast(Sacred Shield)","lowest.range <= 40", "lowest.buff(148039).duration <= 5","player.spell(Sacred Shield).charges >= 1", "lowest.health <= 90"},"lowest"},
-{"Light of Dawn",{"!player.moving","player.holypower == 5","@coreHealing.needsHealing(95, 4)", "lowest.range <= 40"},"lowest"},
-{"Light of Dawn",{"!player.moving","player.holypower >= 3","@coreHealing.needsHealing(88, 5)", "lowest.range <= 40"},"lowest"},
-{"Holy Shock",{"lowest.health <= 95", "lowest.range <= 40", "player.holypower < 5","!player.buff(105809)"},"lowest"},
-{"Holy Shock",{"lowest.health <= 95", "lowest.range <= 40", "player.holypower < 3","player.buff(105809)"},"lowest"},
-{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(60, 5)","player.holypower < 5","!player.buff(105809)"},"lowest"},
-{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(60, 5)","player.holypower < 3","player.buff(105809)"},"lowest"},
-{"Holy Radiance",{"player.mana >= 20","player.buff(54149)","@coreHealing.needsHealing(80, 5)","player.holypower < 5","!player.buff(105809)"},"lowest"},
-{"Holy Radiance",{"player.mana >= 20","player.buff(54149)","@coreHealing.needsHealing(80, 5)","player.holypower < 3","player.buff(105809)"},"lowest"},
-{"Word of Glory",{"!@coreHealing.needsHealing(95, 4)","player.holypower = 5","lowest.health <= 77","lowest.range <= 40", "!player.moving"},"lowest"},
-{"Word of Glory",{"!@coreHealing.needsHealing(95, 4)","player.holypower = 5","lowest.health <= 88","tank.range <= 40", "!player.moving"},"tank"},
-{"Holy Light",{"lowest.health <= 75","lowest.range <= 40", "!player.moving","player.spell(Holy Shock).cooldown > 1"},"lowest"},
-{"Holy Light",{"tank.health <= 88","tank.range <= 40", "!player.moving","player.spell(Holy Shock).cooldown > 1"},"tank"},
+
+
+
+{"Light of Dawn",{"!player.moving","player.holypower == 5","@coreHealing.needsHealing(96,5)", "lowest.range <= 40"},"lowest"},
+{"Light of Dawn",{"!player.moving","player.holypower == 5","@coreHealing.needsHealing(93,4)", "lowest.range <= 40"},"lowest"},
+{"Light of Dawn",{"!player.moving","player.holypower == 5","@coreHealing.needsHealing(90,3)", "lowest.range <= 40"},"lowest"},
+
+{"Light of Dawn",{"!player.moving","player.holypower >= 3","@coreHealing.needsHealing(88,5)", "lowest.range <= 40"},"lowest"},
+{"Light of Dawn",{"!player.moving","player.holypower >= 3","@coreHealing.needsHealing(80,3)", "lowest.range <= 40"},"lowest"},
+{"Light of Dawn",{"!player.moving","player.holypower >= 3","@coreHealing.needsHealing(75,2)", "lowest.range <= 40"},"lowest"},
+{{
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(75,6)","player.holypower < 5","!player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(75,6)","player.holypower < 3","player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(65,5)","player.holypower < 5","!player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(65,5)","player.holypower < 3","player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(55,4)","player.holypower < 5","!player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(55,4)","player.holypower < 3","player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(45,3)","player.holypower < 5","!player.buff(105809)"},"lowest"},
+{"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(45,3)","player.holypower < 3","player.buff(105809)"},"lowest"},
+},"toggle.HRad"},
+--{"Word of Glory",{"!@coreHealing.needsHealing(95, 4)","player.holypower = 5","lowest.health <= 77","lowest.range <= 40", "!player.moving"},"lowest"},
+--{"Word of Glory",{"!@coreHealing.needsHealing(95, 4)","player.holypower = 5","lowest.health <= 88","tank.range <= 40", "!player.moving"},"tank"},
+{"Holy Light",{"lowest.health <= 85","lowest.range <= 40", "!player.moving","player.spell(Holy Shock).cooldown > 1"},"lowest"},
+{"Holy Light",{"tank.health <= 92","tank.range <= 40", "!player.moving","player.spell(Holy Shock).cooldown > 1"},"tank"},
+{"Holy Light",{"lowest.health <= 85","lowest.range <= 40", "!player.moving","player.holypower = 5"},"lowest"},
+{"Holy Light",{"tank.health <= 92","tank.range <= 40", "!player.moving","player.holypower = 5"},"tank"},
 
 },"talent(3,3)"},--End SS CR
-
---54149 iNFUSION OF LIGHT
 
 
 
@@ -204,6 +234,7 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 
 },function()
 ProbablyEngine.toggle.create('Blessing', 'Interface\\Icons\\spell_magic_greaterblessingofkings', 'Blessings','On for Kings off for Might')
+ProbablyEngine.toggle.create('HRad', 'Interface\\Icons\\spell_paladin_divinecircle', 'Holy Radiance','Toggle on/off use of Holy Radiance')
 ProbablyEngine.toggle.create('AutoHands', 'Interface\\Icons\\spell_holy_sealofwisdom', 'Automatic Hands Usage','SAC/BoP/Freedom Automatic Usage Not for Pros')
 ProbablyEngine.toggle.create('AutoTarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target and Focus','Target boss and focus currently active Tank')
 
