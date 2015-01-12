@@ -12,7 +12,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0AResto v5.1|r", {
+ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0AResto v5.2|r", {
 
 
 
@@ -161,7 +161,7 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 {"Wild Growth",{"!player.moving","player.mana >= 20","lowest.range <= 40", "@coreHealing.needsHealing(60, 3)"}, "lowest"},
 {"Wild Growth",{"!player.moving","player.mana >= 20","tank.range <= 40", "@coreHealing.needsHealing(60, 3)"}, "tank"},
 {"Wild Growth",{"!player.moving","player.mana >= 20","focus.range <= 40", "@coreHealing.needsHealing(60, 3)"}, "focus"},
-{"Wild Growth",{"!player.moving","player.mana >= 20","lowest.range <= 40", "@coreHealing.needsHealing(80, 5"}, "lowest"},
+{"Wild Growth",{"!player.moving","player.mana >= 20","lowest.range <= 40", "@coreHealing.needsHealing(80, 5)"}, "lowest"},
 {"Wild Growth",{"!player.moving","player.mana >= 20","tank.range <= 40", "@coreHealing.needsHealing(80, 5)"}, "tank"},
 {"Wild Growth",{"!player.moving","player.mana >= 20","focus.range <= 40", "@coreHealing.needsHealing(80, 5)"}, "focus"},
 }, "toggle.WildGrowth"},
