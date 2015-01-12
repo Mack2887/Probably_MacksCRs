@@ -11,3 +11,4 @@ Paladin\Holy.lua
 Paladin\RetHelper.lua
 Priest\Holy.lua
 Shaman\ItsRaining.lua
+Shaman\LightningBolt.lua
