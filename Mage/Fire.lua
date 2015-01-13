@@ -3,7 +3,7 @@
 --   Macks Pyromania    --
 ---------------------------
 
-ProbablyEngine.rotation.register_custom(63, "Mack Fire v2.2", {
+ProbablyEngine.rotation.register_custom(63, "|cff00FFFFMacks|r - [|cff69CCF0Fire Mage v2.3|r]", {
 
 
 -- Pause for Invis
@@ -12,12 +12,14 @@ ProbablyEngine.rotation.register_custom(63, "Mack Fire v2.2", {
 --       MODIFIERS       --
 ---------------------------
 --{ "Ring of Frost", "modifier.lalt", "ground" },
+{ "1459", "!player.buffs.spellpower" }, --spellpower
+{ "1459", "!player.buffs.crit" }, --scrit
 {"Rune of Power",{"!player.moving","modifier.rcontrol"},"mouseover.ground"},
 {"Amplify Magic",{"modifier.lalt"},}, 
 {"!Ice Block",{"modifier.lshift","!player.spell(157913).exists"}},
 {"!157913",{"modifier.lshift","player.spell(157913).exists"}},
 {"Alter Time",{"modifer.rshift","player.spell(Alter Time).exists"}},
-{"!Combustion",  {"modifier.lcontrol"}, "target"},
+{"!Combustion",  {"modifier.lcontrol","player.spell(Pyroblast).casted >= 1"}, "target"},
 ---------------------------
 --     SURVIVAL/misc     --
 ---------------------------
@@ -34,7 +36,7 @@ ProbablyEngine.rotation.register_custom(63, "Mack Fire v2.2", {
 ---------------------------
 -- Interrupts
 { "Counterspell", "modifier.interrupts" },
-{ "Frostjaw", "modifier.interrupts" },
+
 
 ---------------------------
 --  MI/RoP & METEOR/PC   --
@@ -49,7 +51,14 @@ ProbablyEngine.rotation.register_custom(63, "Mack Fire v2.2", {
 {"Pyroblast",{"lastcast(Fireball)", "player.buff(Pyroblast!)","player.spell(Meteor).cooldown > 40"},"target"},
 {"Pyroblast",{"lastcast(Meteor)", "player.buff(Pyroblast!)","player.spell(Meteor).cooldown > 40"},"target"},
 
---PC coming soon
+--PC rotationn
+{"Prismatic Crystal",{"target.enemy","player.buff(Heating Up)","player.buff(Pyroblast!)","modifier.cooldowns"},"target.ground"},
+{"Fireball",{"lastcast(Prismatic Crystal)", "!player.moving"},"target"},
+{"Pyroblast",{"lastcast(Fireball)", "player.buff(Pyroblast!)","player.spell(Prismatic Crystal).cooldown > 80"},"target"},
+{"Pyroblast",{"lastcast(Prismatic Crystal)", "player.buff(Pyroblast!)","player.spell(Prismatic Crystal).cooldown > 80"},"target"},
+{"Inferno Blast",{"lastcast(Combustion)","player.spell(Combustion).casted >= 1","player.spell(Prismatic Crystal).cooldown > 80"}, "target" },
+{"Pyroblast",{"player.totem(Prismatic Crystal)", "player.buff(Pyroblast!)"},"target"},
+
    
 
 
@@ -81,6 +90,8 @@ ProbablyEngine.rotation.register_custom(63, "Mack Fire v2.2", {
 ---------------------------
 
 {"Combustion",{"target.debuff(155158)","target.debuff(Ignite)","talent(7,3)", "player.spell(Pyroblast).casted >= 1"},"target"},
+{"Combustion",{"!player.buff(Pyroblast!)","target.debuff(Ignite)","talent(7,2)", "player.spell(Pyroblast).casted >= 3"},"target"},
+
 {"Inferno Blast",{"lastcast(Combustion)","modifier.multitarget", "!lastcast(Inferno Blast)"}, "target" },
 
 --"toggle.AutoCombust"
@@ -91,21 +102,33 @@ ProbablyEngine.rotation.register_custom(63, "Mack Fire v2.2", {
 
 {"Living Bomb", {"!target.debuff(Living Bomb)", "talent(5,1)" },"target" }, --Living Bomb
 
-{{  --For USE with Meteor Talent. Casts when Meteor is on CD. For opener purposes.
-{"Blast Wave", {"talent(5,3)", "player.buff(116267).count >= 4" },"target" }, 
-{"Blast Wave", {"talent(5,3)", "player.buff(Rune of Power)" },"target" }, 
-{"Blast Wave", {"talent(5,3)", "talent(6,1)" },"target" }, 
+{{  -- Casts when Meteor is on CD. For opener purposes.
+{"Blast Wave", {"target.exists","talent(5,3)", "player.buff(116267).count >= 4" },"target" }, 
+{"Blast Wave", {"target.exists","talent(5,3)", "player.buff(Rune of Power)" },"target" }, 
+{"Blast Wave", {"target.exists","talent(5,3)", "talent(6,1)" },"target" }, 
 },{"toggle.UseBlastWave","talent(7,3)","player.spell(Meteor).cooldown > 0", "!player.buff(Heating Up)"}},
-{{  --For USE with Meteor Talent. When CD disabled. for trash
-{"Blast Wave", {"talent(5,3)", "player.buff(116267).count >= 4" },"target" }, 
-{"Blast Wave", {"talent(5,3)", "player.buff(Rune of Power)" },"target" }, 
-{"Blast Wave", {"talent(5,3)", "talent(6,1)" },"target" }, 
-},{"toggle.UseBlastWave","talent(7,3)","toggle.Trashmode", "!player.buff(Heating Up)"}},
-{{  -- Not meteor.
-{"Blast Wave", {"talent(5,3)", "player.buff(116267).count >= 4" },"target" }, 
-{"Blast Wave", {"talent(5,3)", "player.buff(Rune of Power)" },"target" }, 
-{"Blast Wave", {"talent(5,3)", "talent(6,1)" },"target" }, 
-},{"toggle.UseBlastWave","!talent(7,3)"}},
+
+{{  --Casts when PC is on CD. For opener purposes.
+{"Blast Wave", {"target.exists","talent(5,3)", "player.buff(116267).count >= 4" },"target" }, 
+{"Blast Wave", {"target.exists","talent(5,3)", "player.buff(Rune of Power)" },"target" }, 
+{"Blast Wave", {"target.exists","talent(5,3)", "talent(6,1)" },"target" }, 
+},{"toggle.UseBlastWave","talent(7,2)","player.spell(Prismatic Crystal).cooldown > 0", "!player.buff(Pyroblast!)"}},
+
+
+
+{{  -- Kindling
+{"Blast Wave", {"target.exists","talent(5,3)", "player.buff(116267).count >= 4" },"target" }, 
+{"Blast Wave", {"target.exists","talent(5,3)", "player.buff(Rune of Power)" },"target" }, 
+{"Blast Wave", {"target.exists","talent(5,3)", "talent(6,1)" },"target" }, 
+},{"toggle.UseBlastWave","talent(7,1)"}},
+
+
+{{  --Trashmode
+{"Blast Wave", {"target.exists","talent(5,3)", "player.buff(116267).count >= 4" },"target" }, 
+{"Blast Wave", {"target.exists","talent(5,3)", "player.buff(Rune of Power)" },"target" }, 
+{"Blast Wave", {"target.exists","talent(5,3)", "talent(6,1)" },"target" }, 
+},{"toggle.UseBlastWave","toggle.Trashmode", "!player.buff(Heating Up)"}},
+
 ---------------------------
 --     AOE ROTATION     --
 ---------------------------
@@ -119,6 +142,10 @@ ProbablyEngine.rotation.register_custom(63, "Mack Fire v2.2", {
 ---------------------------
 --     SINGLE TARGET     --
 ---------------------------
+{"Dragon's Breath",{"!modifier.raid","!modifier.party","target.range <= 5"},"target"},
+{"Ice Ward",{"!modifier.raid","!modifier.party","target.range <= 5","talent(3,2)"},"player"},
+{"Ring of Frost",{"!modifier.raid","!modifier.party","target.range <= 5","talent(3,1)"},"player.ground"},
+
 {{
 {"Fireball", {"!glyph(61205)"},"target"},
 {"Frostfire Bolt", {"glyph(61205)"},"target"},
@@ -145,13 +172,24 @@ ProbablyEngine.rotation.register_custom(63, "Mack Fire v2.2", {
 ---------------------------
 --   OOC / PRE-PULL     --
 ---------------------------
+{ "1459", "!player.buffs.spellpower" }, --spellpower
+{ "1459", "!player.buffs.crit" }, --scrit
+
 {"Rune of Power",{"!player.moving","modifier.rcontrol"},"mouseover.ground"},
 {"#109218",{"modifier.lcontrol"},"player"},
 {"Mirror Image",{"modifier.lcontrol","!lastcast(Mirror Image)","talent(6,1)"}},
 {"Pyroblast",{"modifier.lcontrol"},"target"},
 
 
-
+--player.buffs.stats  (GetRaidBuffTrayAuraInfo(1))
+--player.buffs.stamina  (GetRaidBuffTrayAuraInfo(2))
+--player.buffs.attackpower  (GetRaidBuffTrayAuraInfo(3))
+--player.buffs.haste  (GetRaidBuffTrayAuraInfo(4))
+--player.buffs.spellpower  (GetRaidBuffTrayAuraInfo(5))
+--player.buffs.crit  (GetRaidBuffTrayAuraInfo(6))
+--player.buffs.mastery  (GetRaidBuffTrayAuraInfo(7))
+--player.buffs.multistrike  (GetRaidBuffTrayAuraInfo(8))
+--player.buffs.versatility  (GetRaidBuffTrayAuraInfo(9))
 
 }, function()
 ProbablyEngine.toggle.create('AutoCombust', 'Interface\\Icons\\spell_fire_sealoffire', 'Automated Combustion','Automated Combustion only works with Meteor talent')
