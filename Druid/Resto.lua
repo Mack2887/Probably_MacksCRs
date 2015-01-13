@@ -23,6 +23,7 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 ---------------------------
 --    MODIFIERS/MISC     --
 ---------------------------
+{ "1126", "!player.buffs.stats" }, --stats
 {"!Wild Mushroom", "modifier.rcontrol", "mouseover.ground" }, --shroom
 {"!26297", "modifier.lalt"}, --Berserking Racial
 {"!740", "modifier.lalt"}, --Tranq
