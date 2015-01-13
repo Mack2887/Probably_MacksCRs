@@ -12,7 +12,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDResto v3.1|r]", {
+ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDResto v3.2|r]", {
 
 
 
@@ -83,7 +83,7 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 { "108285", {"talent(3,1)", "@coreHealing.needsHealing(80, 3)", "player.spell(5394).cooldown >= 10"}, "player" },
 --healing Rain
 {{
-{"Healing Rain", {"!player.moving","toggle.Rains","!tank.buff(Healing Rain)"},"target.ground"},  
+{"Healing Rain", {"!player.moving","toggle.Rains","!tank.buff(Healing Rain)"},"tank.ground"},  
 {"Healing Rain",{"!player.moving","!toggle.Rains","!player.buff(Healing Rain)"},"player.ground"},
 },"toggle.AutoRains"},
 
