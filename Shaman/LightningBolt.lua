@@ -77,8 +77,8 @@ ProbablyEngine.rotation.register_custom(262, "|cff00FFFFMacks|r - [|cff0000CDELE
 ---------------------------
 -- SINGLE TARGET/Cleave  --
 ---------------------------
-{ "Lava Burst", { "player.buff(Ancestral Swiftness)","target.range <= 40" },"target" },
 { "Elemental Blast", { "player.buff(Ancestral Swiftness)","target.range <= 40" },"target" },
+{ "Lava Burst", { "player.buff(Ancestral Swiftness)","target.range <= 40" },"target" },
 { "Unleash Flame", { "talent(6, 1)" } },
 {"Lava Burst",{"!player.moving","target.range <= 40"},"target"},
 {"Elemental Blast",{"!player.moving","target.range <= 40"},"target"},
