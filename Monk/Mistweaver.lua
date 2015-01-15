@@ -14,7 +14,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96MistWeaver v6.3|r]", {
+ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96MistWeaver v6.4|r]", {
 
 
 ---------------------------
@@ -228,17 +228,13 @@ ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96Mis
 ---------------------------
 --  EXPEL HARM & Talents --
 ---------------------------
-{ "Expel Harm", {"lowest.health <= 100","player.chi < 4"}, "lowest" }, 
+{ "Expel Harm", {"lowest.health <= 100","player.chi < 4","lowest.range <= 40"}, "lowest" }, 
 {"Chi Brew",{"!lastcast(Chi Brew)", "talent(3,3)", "player.chi <= 2", "@coreHealing.needsHealing(80,5)" },"player"}, 
 {"Chi Brew",{"!lastcast(Chi Brew)", "player.spell(Chi Brew).charges > 1","talent(3,3)", "player.chi <= 2","@coreHealing.needsHealing(90,4)"},"player"}, 
 
 { "124081", {"lowest.health <= 90"}, "lowest" }, --zen shpere
 { "Chi Wave",{"lowest.health <= 100 "}, "lowest" }, --chi wave
 
----------------------------
---       MANA TEA        --
----------------------------
-  { "115294", { "!@coreHealing.needsHealing(80,5)","!lastcast(115294)","player.mana < 75", "player.buff(115867).count >= 2","!player.moving"},}, -- mana tea
 
 
 ---------------------------
@@ -248,8 +244,8 @@ ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96Mis
     {{
    -- {"/stopcasting",{"raid.health <= 90", "player.chi >= 2", "player.channeling"}},
     
-    { "!Uplift", {"player.channeling","raid.health <= 90","!player.moving","player.chi >= 2" },"player"}, --Uplift
-    { "Uplift", {"!player.channeling","raid.health <= 90","!player.moving","player.chi >= 2" },"player"}, --Uplift
+    { "!Uplift", {"player.channeling","raid.health <= 90","!player.moving","player.chi >= 2","@coreHealing.needsHealing(95,5)" },"player"}, --Uplift
+    { "Uplift", {"!player.channeling","raid.health <= 90","!player.moving","player.chi >= 2","@coreHealing.needsHealing(95,5)" },"player"}, --Uplift
 
     { "116680",{"!player.spell(Uplift).casting"}, "player"},
 
@@ -308,6 +304,12 @@ ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96Mis
 { "Renewing Mist", { "raid20.range <= 40","raid20.buff(119611).duration <= 2"}, "raid20" }, 
 { "Renewing Mist", { "raid21.range <= 40","raid21.buff(119611).duration <= 2"}, "raid21" }, 
 },{"!player.channeling","player.spell(Renewing Mist).charges >= 2","player.chi < 4", "talent(7,3)","@coreHealing.needsHealing(99,4)"},},
+
+---------------------------
+--       MANA TEA        --
+---------------------------
+  { "115294", { "!@coreHealing.needsHealing(95,5)","!lastcast(115294)","player.mana < 75", "player.buff(115867).count >= 2","!player.moving"},}, -- mana tea
+
 
 
 {{-- Cast Third charge for Chi, and when raid is lower HP
@@ -369,8 +371,8 @@ ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96Mis
     --Need more Chi for uplift
     { "116694", {"player.channeling","player.mana >= 40","@coreHealing.needsHealing(85,5)","lowest.health <= 90", "player.chi < 2","!lastcast(116694)"}, "lowest" }, -- Surging Mist
 
-    { "115175", {"!player.channeling","lowest.health <= 90","!lastcast(115175)","!player.moving", "lowest.buff(115175).duration <= 1"}, "lowest" }, -- Soothing Mist
-    { "!115175", {"player.channeling","lowest.health <= 90","!lastcast(115175)","!player.moving", "lowest.buff(115175).duration <= 1"}, "lowest" }, -- Soothing Mist
+    { "115175", {"!player.channeling","lowest.health <= 92","!lastcast(115175)","!player.moving", "lowest.buff(115175).duration <= 1"}, "lowest" }, -- Soothing Mist
+    { "!115175", {"player.channeling","lowest.health <= 92","!lastcast(115175)","!player.moving", "lowest.buff(115175).duration <= 1"}, "lowest" }, -- Soothing Mist
 
 
     }, "modifier.multitarget"},
@@ -393,7 +395,11 @@ ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96Mis
     { "!115175", {"lowest.health <= 70","!player.moving", "!lastcast(115175)", "tank.buff(115175).duration <= 1"}, "lowest" }, -- Soothing Mist
     { "124682", { "player.channeling", "lowest.health <= 70", "player.chi > 2" }, "lowest" }, -- EnM
     { "116694", { "player.channeling","lowest.health <= 65", "!lastcast(116694)" }, "lowest" }, -- Surging Mist
-    
+    ---------------------------
+--       MANA TEA        --
+---------------------------
+  { "115294", { "!@coreHealing.needsHealing(95,5)","!lastcast(115294)","player.mana < 75", "player.buff(115867).count >= 2","!player.moving"},}, -- mana tea
+
     { "124682", { "player.channeling", "lowest.health <= 85", "player.chi > 3" }, "lowest" }, -- EnM dump chi
     {"115175", { "lowest.health <= 90", "!player.moving", "lowest.buff(115175).duration <= 1"}, "lowest" }, --soothing
 
@@ -402,7 +408,7 @@ ProbablyEngine.rotation.register_custom(270, "|cff00FFFFMacks|r - [|cff00FF96Mis
     
     }, "!modifier.multitarget"},
     --!!!!!!!!!!!!!!!      END SINGLE TARGET  (multitarget disabled)  !!!!!!!!!!!!!
-
+{"117952",{"target.range <= 40", "!player.moving","target.enemy"},"target"},
 {"Detonate Chi",{"player.moving", "!lastcast(Detonate Chi)"},"player"},
   }, "player.stance = 1" },
   --!!!!!!!!!!!!!!!        END SERPANT STANCE HEALING        !!!!!!!!!!!!!!!!!!!!!!
