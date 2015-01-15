@@ -2,7 +2,7 @@
 --   Welcome to the Thunderdome    --
 -------------------------------------
 
-ProbablyEngine.rotation.register_custom(262, "|cff00FFFFMacks|r - [|cff0000CDELE v1.0|r]", {
+ProbablyEngine.rotation.register_custom(262, "|cff00FFFFMacks|r - [|cff0000CDELE v1.1|r]", {
 
 
 --{"",{""},""},
@@ -12,6 +12,10 @@ ProbablyEngine.rotation.register_custom(262, "|cff00FFFFMacks|r - [|cff0000CDELE
 ---------------------------
 {"/cancelaura Ghost Wolf",{"!player.moving", "player.buff(Ghost Wolf)"}},
 {"/cancelaura Ghost Wolf",{"player.buff(79206)", "player.buff(Ghost Wolf)"}},
+{"/cancelaura Ghost Wolf",{"player.buff(Lava Surge)", "player.buff(Ghost Wolf)"}},
+{"/cancelaura Ghost Wolf",{"!player.spell(Earth Shock).cooldown","player.buff(Lightning Shield).count >= 13","target.debuff(Flame Shock).duration >= 9", "player.buff(Ghost Wolf)"}},
+
+{"Earth Shock",{"player.buff(Lightning Shield).count >= 15", "target.range <= 40","target.debuff(Flame Shock).duration >= 9" },"target" },
 
 {"!Ancestral Guidance",{"modifier.lalt","talent(5,2)"},"player"},
 {"!Healing Rain",{"modifier.lalt","talent(5,3)"},"mouseover.ground"},
@@ -30,7 +34,7 @@ ProbablyEngine.rotation.register_custom(262, "|cff00FFFFMacks|r - [|cff0000CDELE
 	{ "Elemental Mastery" },  
 	{ "#trinket1", { "player.buff(Ascendance)" } }, 
 	{ "#trinket2", { "player.buff(Ascendance)" } }, 
-	{ "Ascendance", { "!player.buff(Ascendance)","lastcast(Lava Burst)" },"player" },
+	{ "Ascendance", { "!player.buff(Ascendance)"},"player" },
 }, "modifier.cooldowns" },
 
 ---------------------------
@@ -45,7 +49,7 @@ ProbablyEngine.rotation.register_custom(262, "|cff00FFFFMacks|r - [|cff0000CDELE
 { "#5512", "player.health <= 35","player" },  --healthstone
 { "Stoneform", "player.health <= 65" },
 { "Gift of the Naaru", "player.health <= 70", "player" },
-{ "Spiritwalker's Grace", { "player.buff(Ascendance)","player.movingfor >= 1" },"player" },
+{ "Spiritwalker's Grace", { "player.buff(Ascendance)","player.moving"},"player" },
 
 ---------------------------
 --INTERRUPT & SPELLSTEAL--
@@ -69,27 +73,37 @@ ProbablyEngine.rotation.register_custom(262, "|cff00FFFFMacks|r - [|cff0000CDELE
 --     AOE ROTATION     --
 ---------------------------
 {{
-{"Lava Beam",{ "player.buff(Ascendance)","target.range <= 40" },"target" },
+{"Lava Beam",{ "player.buff(Ascendance)","target.range <= 40","!player.moving" },"target" },
+{"Lava Beam",{ "player.buff(Ascendance)","target.range <= 40","player.buff(79206)" },"target" },
 {"Earthquake", {"player.buff(Improved Chain Lightning)","!player.moving"}, "target.ground" },
+{"Earthquake", {"player.buff(Improved Chain Lightning)","player.buff(79206)"}, "target.ground" },
 {"Earth Shock",{"player.buff(Lightning Shield).count >= 18","target.range <= 40" },"target" },
 {"Chain Lightning",{"target.range <= 40","!player.moving" },"target" },
+{"Chain Lightning",{"target.range <= 40","player.buff(79206)" },"target" },
 },"toggle.AoESpam"},
 ---------------------------
 -- SINGLE TARGET/Cleave  --
 ---------------------------
 { "Elemental Blast", { "player.buff(Ancestral Swiftness)","target.range <= 40" },"target" },
 { "Lava Burst", { "player.buff(Ancestral Swiftness)","target.range <= 40" },"target" },
+{ "Lava Burst", { "player.buff(Lava Surge)","target.range <= 40" },"target" },
 { "Unleash Flame", { "talent(6, 1)" } },
 {"Lava Burst",{"!player.moving","target.range <= 40"},"target"},
+{"Lava Burst",{"player.buff(79206)","target.range <= 40"},"target"},
 {"Elemental Blast",{"!player.moving","target.range <= 40"},"target"},
+{"Elemental Blast",{"player.buff(79206)","target.range <= 40"},"target"},
 {"Earth Shock",{"player.buff(Lightning Shield).count >= 15", "target.range <= 40","target.debuff(Flame Shock).duration >= 9" },"target" },
-{"Searing Totem", { "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)", "target.ttd >= 10" } },
+{"Earth Shock",{"!player.buff(79206)","player.moving","player.buff(Lightning Shield).count >= 10", "target.range <= 40","target.debuff(Flame Shock).duration >= 9" },"target" },
+{"Searing Totem", { "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)"} },
 {"Earthquake", {"modifier.multitarget","player.buff(Improved Chain Lightning)","!player.moving"}, "target.ground" },
+{"Earthquake", {"modifier.multitarget","player.buff(Improved Chain Lightning)","player.buff(79206)"}, "target.ground" },
 {"Chain Lightning", {"modifier.multitarget","!player.moving","target.range <= 40"}, "target" },
+{"Chain Lightning", {"modifier.multitarget","player.buff(79206)","target.range <= 40"}, "target" },
 {"Lightning Bolt", {"!modifier.multitarget","!player.moving","target.range <= 40"}, "target" },
+{"Lightning Bolt", {"!modifier.multitarget","player.buff(79206)","target.range <= 40"}, "target" },
 { "Unleash Flame" },
 
-{"Ghost Wolf",{"player.movingfor >= 1", "!lastcast(Ghost Wolf)","!player.buff(Spiritwalker's Grace)"},},
+{"Ghost Wolf",{"player.movingfor > 1", "!lastcast(Ghost Wolf)","!player.buff(79206)"},},
 
 ---------------------------
 --!!!!!!END COMBAT!!!!!!!--
