@@ -12,7 +12,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDResto v3.2|r]", {
+ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDResto v3.3|r]", {
 
 
 
@@ -28,8 +28,8 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 { "!Ascendance", "modifier.ralt" },--Ascendance
 {"!98008",{"modifier.rcontrol"},"player"},--Spirit Link
 { "!Healing Rain",{"!player.moving","modifier.lcontrol"} , "mouseover.ground" },
-{ "974", { "!target.target(player)","focus.buff(974).count < 2","focus.range <= 40", "player.spell(974).casted < 1" }, "focus" }, --Eaarth Shield
-{ "974", {"!target.target(player)", "tank.buff(974).count < 2", "tank.range <= 40", "player.spell(974).casted < 1" }, "tank" }, --Earth Shield
+{ "974", {"!player.buff(114052)", "!target.target(player)","focus.buff(974).count < 2","focus.range <= 40", "player.spell(974).casted < 1" }, "focus" }, --Eaarth Shield
+{ "974", {"!player.buff(114052)","!target.target(player)", "tank.buff(974).count < 2", "tank.range <= 40", "player.spell(974).casted < 1" }, "tank" }, --Earth Shield
 { "57994", "modifier.interrupt" },   --  Wind Shear
 {"79206",{"player.moving", "modifier.cooldowns", "!player.buff(79206)"}},--Spiritwalkers Gravce if Cooldown enabled and moving
 { "#trinket1","modifier.cooldowns" },
@@ -52,26 +52,20 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 { "Stoneform", "player.health <= 65" },
 { "Gift of the Naaru", "player.health <= 70", "player" },
 
----------------------------
---       ASCENDANCE      --
----------------------------
-{{
-{"Blood Fury"},
-{"Berserking"},
-{"Chain Heal",{"lowest.range <= 40","!player.moving"},"lowest"},
-},"player.buff(114052)"},
+
+
 
 ---------------------------
 --       DISPELLS        --
 ---------------------------
-{"77130", {"!lastcast(77130)","player.mana > 10","@coreHealing.needsDispelled('Corrupted Blood')" }, nil },
-{"77130", {"!lastcast(77130)","player.mana > 10","@coreHealing.needsDispelled('Slow')"}, nil },
+{"77130", {"!player.buff(114052)","!lastcast(77130)","player.mana > 10","@coreHealing.needsDispelled('Corrupted Blood')" }, nil },
+{"77130", {"!player.buff(114052)","!lastcast(77130)","player.mana > 10","@coreHealing.needsDispelled('Slow')"}, nil },
 
 
 ---------------------------
 --  WATER TOTEM/ Rains   --
 ---------------------------
-
+{{
 {"5394",{"!player.totem(108280)", "!player.totem(157153)","!player.totem(5394)"},"player"}, --Healing Stream
 {"157153",{"!player.totem(108280)", "!player.totem(5394)","!player.totem(157153)", "talent(7,1)"},"player"}, --Cloud Burst
 
@@ -83,16 +77,17 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 { "108285", {"talent(3,1)", "@coreHealing.needsHealing(80, 3)", "player.spell(5394).cooldown >= 10"}, "player" },
 --healing Rain
 {{
-{"Healing Rain",{"!player.moving","toggle.Rains"},"tank.ground"},  
+{"Healing Rain",{"!player.moving","toggle.Rains"},"focus.ground"},  
 {"Healing Rain",{"!player.moving","!toggle.Rains","!player.buff(Healing Rain)"},"player.ground"},
 },"toggle.AutoRains"},
-
+},"!player.buff(114052)"},
 ---------------------------
 --       EMERGENCY     --
 ---------------------------
+{{
 {"73685",{"!player.buff(73685)","!lastcast(73685)", "lowest.health <= 90"},"tank"}, --Unleash Life on CD
 {"73685",{"!player.buff(73685)","!lastcast(73685)", "player.moving"},"tank"}, --Unleash Life on CD
-
+},"!player.buff(114052)"},
 {"16188", {"lowest.health <= 40"}},
 {"Healing Wave",{"player.buff(16188)"},"lowest"},
 {"Healing Surge",{"!player.moving","tank.health <= 25","tank.range <= 40"},"tank"},
@@ -120,10 +115,17 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 ---------------------------
 {{
 
-
+{{
 { "Chain Heal", {"lowest.range <= 40", "lowest.buff(Riptide)", "lowest.health <= 90"}, "lowest" }, 
 { "Chain Heal", {"focus.range <= 40", "focus.buff(Riptide)", "focus.health <= 30"}, "focus" }, 
 { "Chain Heal", {"tank.buff(Riptide)", "tank.health <= 30"}, "tank" }, 
+},"!player.moving"},
+
+{{
+{ "Chain Heal", {"lowest.range <= 40", "lowest.buff(Riptide)", "lowest.health <= 90"}, "lowest" }, 
+{ "Chain Heal", {"focus.range <= 40", "focus.buff(Riptide)", "focus.health <= 30"}, "focus" }, 
+{ "Chain Heal", {"tank.buff(Riptide)", "tank.health <= 30"}, "tank" }, 
+},"player.buff(Spiritwalker's Grace)"},
 
 {{--Not Moving  
 { "Chain Heal", {"raid1.range <= 40","raid1.buff(Riptide)", "raid1.health <= 30"}, "raid1" }, 
@@ -231,6 +233,7 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 },"player.spell(Riptide).casted <= 6"},--This incase you glyphed it
 
 {"Healing Wave",{"!player.moving","player.buff(53390)", "tank.health <= 90"}, "tank"},
+{"Healing Wave",{"player.buff(Spiritwalker's Grace)","player.buff(53390)", "tank.health <= 90"}, "tank"},
 
 {{--Not Moving  
 { "Chain Heal", {"raid1.range <= 40","raid1.buff(Riptide)", "raid1.health <= 90"}, "raid1" }, 
@@ -264,13 +267,16 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 ---------------------------
 --     SINGLE TARGET     --
 ---------------------------
+
 {"Riptide",{"tank.range <= 40", "!player.buff(53390)", "!tank.buff(61295)", "tank.health <= 95"},"tank"}, --to keep up Tidal Waves
 {"Riptide",{"lowest.range <= 40", "!player.buff(53390)", "!lowest.buff(61295)", "lowest.health <= 95"},"tank"}, --to keep up Tidal Waves
 
 {"Healing Wave",{"!player.moving","player.buff(53390)", "lowest.health <= 85"}, "lowest"},
 {"Healing Wave",{"!player.moving","player.buff(53390)", "tank.health <= 90"}, "tank"},
-
-
+{{
+{"Healing Wave",{"player.buff(53390)", "lowest.health <= 85"}, "lowest"},
+{"Healing Wave",{"player.buff(53390)", "tank.health <= 90"}, "tank"},
+},"player.buff(Spiritwalker's Grace)"},
 ---------------------------
 --       ghost wolf!     --
 ---------------------------
