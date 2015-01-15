@@ -31,7 +31,7 @@ ProbablyEngine.rotation.register_custom(264, "|cff00FFFFMacks|r - [|cff0000CDRes
 { "974", {"!player.buff(114052)", "!target.target(player)","focus.buff(974).count < 2","focus.range <= 40", "player.spell(974).casted < 1" }, "focus" }, --Eaarth Shield
 { "974", {"!player.buff(114052)","!target.target(player)", "tank.buff(974).count < 2", "tank.range <= 40", "player.spell(974).casted < 1" }, "tank" }, --Earth Shield
 { "57994", "modifier.interrupt" },   --  Wind Shear
-{"79206",{"player.moving", "modifier.cooldowns", "!player.buff(79206)"}},--Spiritwalkers Gravce if Cooldown enabled and moving
+{"79206",{"player.movingfor >= 1", "modifier.cooldowns", "!player.buff(79206)"}},--Spiritwalkers Gravce if Cooldown enabled and moving
 { "#trinket1","modifier.cooldowns" },
 { "#trinket2","modifier.cooldowns" },
 {"!Storm Elemental Totem",{"talent(7,2)","modifier.rshift"}},
