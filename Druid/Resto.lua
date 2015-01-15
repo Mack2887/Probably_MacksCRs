@@ -12,7 +12,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0AResto v5.3|r", {
+ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0AResto v6.0|r", {
 
 
 
@@ -71,9 +71,9 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 ---------------------------
 --       EMERGENCY      --
 ---------------------------
-{"Regrowth",{"!player.moving","focus.health <= 30","focus.range <= 40"},"focus"},
-{"Regrowth",{"!player.moving","tank.health <= 40","tank.range <= 40"},"tank"},
-{"Regrowth",{"!player.moving","lowest.health <= 30","lowest.range <= 40"},"lowest"},
+{"Regrowth",{"!player.moving","focus.health <= 25","focus.range <= 40"},"focus"},
+{"Regrowth",{"!player.moving","tank.health <= 28","tank.range <= 40"},"tank"},
+{"Regrowth",{"!player.moving","lowest.health <= 28","lowest.range <= 40"},"lowest"},
 
 
 ---------------------------
@@ -84,7 +84,6 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 {"Lifebloom",{"player.spell(Lifebloom).casted < 1","!lastcast(Lifebloom)","tank.buff(33763).duration <= 1", "tank.range <= 40"},"tank"},--lifebloom "tank" 
 {"102351",{"focus.buff(102351).duration <= 1","focus.range <= 40"},"focus"}, --CW focus
 {"102351",{"tank.buff(102351).duration <= 1", "!focus.exist", "tank.range <= 40"},"tank"},--CW "tank" if no focus
-{ "Rejuvenation", { "lowest.health <= 91","!player.buff(Rejuvenation)"}, "player" }, -- REJUVE check for swiftmend
 
 ---------------------------
 --     AUTO-SHROOM      --
@@ -150,7 +149,7 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 --       TIER 6         --
 ---------------------------
 --!!!!!!!!!!!   Start Tier 6 Management   !!!!!!!!!!!!!!
-{"Wrath", {"lowest.health >= 80", "!player.moving", "talent(6,2)","!player.buff(114108)"},"target"},
+{"Wrath", {"lowest.health >= 80", "!player.moving", "talent(6,2)","!player.buff(114108)","target.enemy","target.range <= 40"},"target"},
 {"124974", {"@coreHealing.needsHealing(85, 5)", "talent(6,3)","modifier.cooldowns"},}, -- NatuRes vigil
 --!!!!!!!!!!!   END Tier 6 Management   !!!!!!!!!!!!!!
 
@@ -173,6 +172,8 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 ---------------------------
 --      SWIFTMEND        --
 ---------------------------
+{{
+{ "Rejuvenation", { "lowest.health <= 91","!player.buff(Rejuvenation)"}, "player" }, -- REJUVE check for swiftmend
 { "Swiftmend", {"lowest.range <= 40", "lowest.buff(774)", "lowest.health <= 90"}, "lowest" }, -- Rejuv.
 { "Swiftmend", {"focus.range <= 40", "focus.buff(774)", "focus.health <= 95"}, "focus" }, -- Rejuv.
 { "Swiftmend", {"tank.buff(774)", "tank.health <= 95"}, "tank" }, -- Rejuv.
@@ -198,47 +199,65 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 { "Swiftmend", { "raid19.range <= 40","raid19.buff(Rejuvenation)", "raid19.health <= 90"}, "raid19" }, -- Rejuv.
 { "Swiftmend", { "raid20.range <= 40","raid20.buff(Rejuvenation)", "raid20.health <= 90"}, "raid20" }, -- Rejuv.
 { "Swiftmend", { "raid21.range <= 40","raid21.buff(Rejuvenation)", "raid21.health <= 90"}, "raid21" }, -- Rejuv.
---!!!!!!!!!!!!!!!!!!!!!!!        END SWIFTMEND   !!!!!!!!!!!!!!!!!!
-
-
------------------------------
---REGROWTH OR HEALING TOUCH--
------------------------------
----------------------------
---       REGROWTH     --     -- REGROWTH IS BETTER THAN HEALING TOUCH IF GLYPHED
----------------------------
+},"player.moving"},
 {{
-{{ 
-{"Regrowth",{"!player.moving","lowest.buff(Rejuvenation)","lowest.range <= 40", "lowest.health <= 70"}, "lowest"},
-{"Regrowth",{"!player.moving","tank.buff(Rejuvenation)","tank.range <= 40", "tank.health <= 80"}, "tank"},
-{"Regrowth",{"!player.moving","focus.buff(Rejuvenation)","focus.range <= 40", "focus.health <= 80"}, "focus"},
-},"!talent(7,2)"},
-
-{{--155777 is germination
-{"Regrowth",{"!player.moving","lowest.buff(155777)","lowest.range <= 40", "lowest.health <= 70"}, "lowest"},--155777 is Germination
-{"Regrowth",{"!player.moving","tank.buff(155777)","tank.range <= 40", "tank.health <= 80"}, "tank"},
-{"Regrowth",{"!player.moving","focus.buff(155777)","focus.range <= 40", "focus.health <= 80"}, "focus"},
-},"talent(7,2)"},
-
-},"glyph(116218)"},
-
----------------------------
---     HEALING TOUCH     ---- Healing touch is better if not glyphed (non emergency)
----------------------------
+{ "Rejuvenation", { "lowest.health <= 91","!player.buff(Rejuvenation)"}, "player" }, -- REJUVE check for swiftmend
+{ "Swiftmend", {"lowest.range <= 40", "lowest.buff(774)", "lowest.health <= 90"}, "lowest" }, -- Rejuv.
+{ "Swiftmend", {"focus.range <= 40", "focus.buff(774)", "focus.health <= 95"}, "focus" }, -- Rejuv.
+{ "Swiftmend", {"tank.buff(774)", "tank.health <= 95"}, "tank" }, -- Rejuv.
+{ "Swiftmend", { "raid1.range <= 40","raid1.buff(774)", "raid1.health <= 90"}, "raid1" }, -- Rejuv.
+{ "Swiftmend", { "player.buff(774)", "player.health <= 90" }, "player" }, -- Rejuv.
+{ "Swiftmend", { "raid2.range <= 40","raid2.buff(774)", "raid2.health <= 90"}, "raid2" }, -- Rejuv.
+{ "Swiftmend", { "raid3.range <= 40","raid3.buff(774)", "raid3.health <= 90"}, "raid3" }, -- Rejuv.
+{ "Swiftmend", { "raid4.range <= 40","raid4.buff(774)", "raid4.health <= 90"}, "raid4" }, -- Rejuv.
+{ "Swiftmend", { "raid5.range <= 40","raid5.buff(774)", "raid5.health <= 90"}, "raid5" }, -- Rejuv.
+{ "Swiftmend", { "raid6.range <= 40","raid6.buff(774)", "raid6.health <= 90"}, "raid6" }, -- Rejuv.
+{ "Swiftmend", { "raid7.range <= 40","raid7.buff(774)", "raid7.health <= 90"}, "raid7" }, -- Rejuv.
+{ "Swiftmend", { "raid8.range <= 40","raid8.buff(774)", "raid8.health <= 90"}, "raid8" }, -- Rejuv.
+{ "Swiftmend", { "raid9.range <= 40","raid9.buff(774)", "raid9.health <= 90"}, "raid9" }, -- Rejuv.
+{ "Swiftmend", { "raid10.range <= 40","raid10.buff(Rejuvenation)", "raid10.health <= 90"}, "raid10" }, -- Rejuv.
+{ "Swiftmend", { "raid11.range <= 40","raid11.buff(Rejuvenation)", "raid11.health <= 90"}, "raid11" }, -- Rejuv.
+{ "Swiftmend", { "raid12.range <= 40","raid12.buff(Rejuvenation)", "raid12.health <= 90"}, "raid12" }, -- Rejuv.
+{ "Swiftmend", { "raid13.range <= 40","raid13.buff(Rejuvenation)", "raid13.health <= 90"}, "raid13" }, -- Rejuv.
+{ "Swiftmend", { "raid14.range <= 40","raid14.buff(Rejuvenation)", "raid14.health <= 90"}, "raid14" }, -- Rejuv.
+{ "Swiftmend", { "raid15.range <= 40","raid15.buff(Rejuvenation)", "raid15.health <= 90"}, "raid15" }, -- Rejuv.
+{ "Swiftmend", { "raid16.range <= 40","raid16.buff(Rejuvenation)", "raid16.health <= 90"}, "raid16" }, -- Rejuv.
+{ "Swiftmend", { "raid17.range <= 40","raid17.buff(Rejuvenation)", "raid17.health <= 90"}, "raid17" }, -- Rejuv.
+{ "Swiftmend", { "raid18.range <= 40","raid18.buff(Rejuvenation)", "raid18.health <= 90"}, "raid18" }, -- Rejuv.
+{ "Swiftmend", { "raid19.range <= 40","raid19.buff(Rejuvenation)", "raid19.health <= 90"}, "raid19" }, -- Rejuv.
+{ "Swiftmend", { "raid20.range <= 40","raid20.buff(Rejuvenation)", "raid20.health <= 90"}, "raid20" }, -- Rejuv.
+{ "Swiftmend", { "raid21.range <= 40","raid21.buff(Rejuvenation)", "raid21.health <= 90"}, "raid21" }, -- Rejuv.
+},"talent(7,3)"},
 {{
-{{-- IF 
-{"Healing Touch",{"!player.moving","lowest.buff(Rejuvenation)","lowest.range <= 40", "lowest.health <= 75"}, "lowest"},
-{"Healing Touch",{"!player.moving","tank.buff(Rejuvenation)","tank.range <= 40", "tank.health <= 85"}, "tank"},
-{"Healing Touch",{"!player.moving","focus.buff(Rejuvenation)","focus.range <= 40", "focus.health <= 85"}, "focus"},
-},"!talent(7,2)"},
+{ "Rejuvenation", { "lowest.health <= 91","!player.buff(Rejuvenation)"}, "player" }, -- REJUVE check for swiftmend
+{ "Swiftmend", {"lowest.range <= 40", "lowest.buff(774)", "lowest.health <= 90"}, "lowest" }, -- Rejuv.
+{ "Swiftmend", {"focus.range <= 40", "focus.buff(774)", "focus.health <= 95"}, "focus" }, -- Rejuv.
+{ "Swiftmend", {"tank.buff(774)", "tank.health <= 95"}, "tank" }, -- Rejuv.
+{ "Swiftmend", { "raid1.range <= 40","raid1.buff(774)", "raid1.health <= 90"}, "raid1" }, -- Rejuv.
+{ "Swiftmend", { "player.buff(774)", "player.health <= 90" }, "player" }, -- Rejuv.
+{ "Swiftmend", { "raid2.range <= 40","raid2.buff(774)", "raid2.health <= 90"}, "raid2" }, -- Rejuv.
+{ "Swiftmend", { "raid3.range <= 40","raid3.buff(774)", "raid3.health <= 90"}, "raid3" }, -- Rejuv.
+{ "Swiftmend", { "raid4.range <= 40","raid4.buff(774)", "raid4.health <= 90"}, "raid4" }, -- Rejuv.
+{ "Swiftmend", { "raid5.range <= 40","raid5.buff(774)", "raid5.health <= 90"}, "raid5" }, -- Rejuv.
+{ "Swiftmend", { "raid6.range <= 40","raid6.buff(774)", "raid6.health <= 90"}, "raid6" }, -- Rejuv.
+{ "Swiftmend", { "raid7.range <= 40","raid7.buff(774)", "raid7.health <= 90"}, "raid7" }, -- Rejuv.
+{ "Swiftmend", { "raid8.range <= 40","raid8.buff(774)", "raid8.health <= 90"}, "raid8" }, -- Rejuv.
+{ "Swiftmend", { "raid9.range <= 40","raid9.buff(774)", "raid9.health <= 90"}, "raid9" }, -- Rejuv.
+{ "Swiftmend", { "raid10.range <= 40","raid10.buff(Rejuvenation)", "raid10.health <= 90"}, "raid10" }, -- Rejuv.
+{ "Swiftmend", { "raid11.range <= 40","raid11.buff(Rejuvenation)", "raid11.health <= 90"}, "raid11" }, -- Rejuv.
+{ "Swiftmend", { "raid12.range <= 40","raid12.buff(Rejuvenation)", "raid12.health <= 90"}, "raid12" }, -- Rejuv.
+{ "Swiftmend", { "raid13.range <= 40","raid13.buff(Rejuvenation)", "raid13.health <= 90"}, "raid13" }, -- Rejuv.
+{ "Swiftmend", { "raid14.range <= 40","raid14.buff(Rejuvenation)", "raid14.health <= 90"}, "raid14" }, -- Rejuv.
+{ "Swiftmend", { "raid15.range <= 40","raid15.buff(Rejuvenation)", "raid15.health <= 90"}, "raid15" }, -- Rejuv.
+{ "Swiftmend", { "raid16.range <= 40","raid16.buff(Rejuvenation)", "raid16.health <= 90"}, "raid16" }, -- Rejuv.
+{ "Swiftmend", { "raid17.range <= 40","raid17.buff(Rejuvenation)", "raid17.health <= 90"}, "raid17" }, -- Rejuv.
+{ "Swiftmend", { "raid18.range <= 40","raid18.buff(Rejuvenation)", "raid18.health <= 90"}, "raid18" }, -- Rejuv.
+{ "Swiftmend", { "raid19.range <= 40","raid19.buff(Rejuvenation)", "raid19.health <= 90"}, "raid19" }, -- Rejuv.
+{ "Swiftmend", { "raid20.range <= 40","raid20.buff(Rejuvenation)", "raid20.health <= 90"}, "raid20" }, -- Rejuv.
+{ "Swiftmend", { "raid21.range <= 40","raid21.buff(Rejuvenation)", "raid21.health <= 90"}, "raid21" }, -- Rejuv.
+},"talent(4,1)"},
 
-{{--155777 is germination
-{"Healing Touch",{"!player.moving","lowest.buff(155777)","lowest.range <= 40", "lowest.health <= 70"}, "lowest"},--155777 is Germination
-{"Healing Touch",{"!player.moving","tank.buff(155777)","tank.range <= 40", "tank.health <= 80"}, "tank"},
-{"Healing Touch",{"!player.moving","focus.buff(155777)","focus.range <= 40", "focus.health <= 80"}, "focus"},
-},"talent(7,2)"},
 
-},"!glyph(116218)"},
 
 
 
@@ -276,8 +295,8 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 ---------------------------
 --        REJUVE        --
 ---------------------------
-{ "Rejuvenation", {"lowest.range <= 40", "!lowest.buff(774)", "lowest.health <= 82"}, "lowest" }, -- Rejuv.
-{ "Rejuvenation", {"focus.range <= 40", "!focus.buff(774)", "focus.health <= 87"}, "focus" }, -- Rejuv.
+{ "Rejuvenation", {"lowest.range <= 40", "!lowest.buff(774)", "lowest.health <= 88"}, "lowest" }, -- Rejuv.
+{ "Rejuvenation", {"focus.range <= 40", "!focus.buff(774)", "focus.health <= 89"}, "focus" }, -- Rejuv.
 { "Rejuvenation", {"tank.range <= 40","!tank.buff(774)", "tank.health <= 87"}, "tank" }, -- Rejuv.
 
 
@@ -313,56 +332,93 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 {{
 --Germ
 {{
-{ "Rejuvenation", { "raid1.range <= 40","raid1.health <= 78","!raid1.buff(155777)"}, "raid1" }, -- germ.
+{ "Rejuvenation", { "raid1.range <= 40","raid1.health <= 75","!raid1.buff(155777)"}, "raid1" }, -- germ.
 { "Rejuvenation", { "player.health <= 80","!player.buff(155777)"}, "player" }, -- germ
-{ "Rejuvenation", { "raid2.range <= 40","raid2.health <= 78","!raid2.buff(155777)"}, "raid2" }, -- germ.
-{ "Rejuvenation", { "raid3.range <= 40","raid3.health <= 78","!raid3.buff(155777)"}, "raid3" }, -- germ.
-{ "Rejuvenation", { "raid4.range <= 40","raid4.health <= 78","!raid4.buff(155777)"}, "raid4" }, -- germ.
-{ "Rejuvenation", { "raid5.range <= 40","raid5.health <= 78","!raid5.buff(155777)"}, "raid5" }, -- germ.
-{ "Rejuvenation", { "raid6.range <= 40","raid6.health <= 78","!raid6.buff(155777)"}, "raid6" }, -- germ.
-{ "Rejuvenation", { "raid7.range <= 40","raid7.health <= 78","!raid7.buff(155777)"}, "raid7" }, -- germ.
-{ "Rejuvenation", { "raid8.range <= 40","raid8.health <= 78","!raid8.buff(155777)"}, "raid8" }, -- germ.
-{ "Rejuvenation", { "raid9.range <= 40","raid9.health <= 78","!raid9.buff(155777)"}, "raid9" }, -- germ.
-{ "Rejuvenation", { "raid10.range <= 40","raid10.health <= 78","!raid10.buff(155777)"}, "raid10" }, -- germ.
-{ "Rejuvenation", { "raid11.range <= 40","raid11.health <= 78","!raid11.buff(155777)"}, "raid11" }, -- germ.
-{ "Rejuvenation", { "raid12.range <= 40","raid12.health <= 78","!raid12.buff(155777)"}, "raid12" }, -- germ.
-{ "Rejuvenation", { "raid13.range <= 40","raid13.health <= 78","!raid13.buff(155777)"}, "raid13" }, -- germ.
-{ "Rejuvenation", { "raid14.range <= 40","raid14.health <= 78","!raid14.buff(155777)"}, "raid14" }, -- germ.
-{ "Rejuvenation", { "raid15.range <= 40","raid15.health <= 78","!raid15.buff(155777)"}, "raid15" }, -- germ.
-{ "Rejuvenation", { "raid16.range <= 40","raid16.health <= 78","!raid16.buff(155777)"}, "raid16" }, -- germ.
-{ "Rejuvenation", { "raid17.range <= 40","raid17.health <= 78","!raid17.buff(155777)"}, "raid17" }, -- germ.
-{ "Rejuvenation", { "raid18.range <= 40","raid18.health <= 78","!raid18.buff(155777)"}, "raid18" }, -- germ.
-{ "Rejuvenation", { "raid19.range <= 40","raid19.health <= 78","!raid19.buff(155777)"}, "raid19" }, -- germ.
-{ "Rejuvenation", { "raid20.range <= 40","raid20.health <= 78","!raid20.buff(155777)"}, "raid20" }, -- germ.
-{ "Rejuvenation", { "raid21.range <= 40","raid21.health <= 78","!raid21.buff(155777)"}, "raid21" }, -- germ.
+{ "Rejuvenation", { "raid2.range <= 40","raid2.health <= 75","!raid2.buff(155777)"}, "raid2" }, -- germ.
+{ "Rejuvenation", { "raid3.range <= 40","raid3.health <= 75","!raid3.buff(155777)"}, "raid3" }, -- germ.
+{ "Rejuvenation", { "raid4.range <= 40","raid4.health <= 75","!raid4.buff(155777)"}, "raid4" }, -- germ.
+{ "Rejuvenation", { "raid5.range <= 40","raid5.health <= 75","!raid5.buff(155777)"}, "raid5" }, -- germ.
+{ "Rejuvenation", { "raid6.range <= 40","raid6.health <= 75","!raid6.buff(155777)"}, "raid6" }, -- germ.
+{ "Rejuvenation", { "raid7.range <= 40","raid7.health <= 75","!raid7.buff(155777)"}, "raid7" }, -- germ.
+{ "Rejuvenation", { "raid8.range <= 40","raid8.health <= 75","!raid8.buff(155777)"}, "raid8" }, -- germ.
+{ "Rejuvenation", { "raid9.range <= 40","raid9.health <= 75","!raid9.buff(155777)"}, "raid9" }, -- germ.
+{ "Rejuvenation", { "raid10.range <= 40","raid10.health <= 75","!raid10.buff(155777)"}, "raid10" }, -- germ.
+{ "Rejuvenation", { "raid11.range <= 40","raid11.health <= 75","!raid11.buff(155777)"}, "raid11" }, -- germ.
+{ "Rejuvenation", { "raid12.range <= 40","raid12.health <= 75","!raid12.buff(155777)"}, "raid12" }, -- germ.
+{ "Rejuvenation", { "raid13.range <= 40","raid13.health <= 75","!raid13.buff(155777)"}, "raid13" }, -- germ.
+{ "Rejuvenation", { "raid14.range <= 40","raid14.health <= 75","!raid14.buff(155777)"}, "raid14" }, -- germ.
+{ "Rejuvenation", { "raid15.range <= 40","raid15.health <= 75","!raid15.buff(155777)"}, "raid15" }, -- germ.
+{ "Rejuvenation", { "raid16.range <= 40","raid16.health <= 75","!raid16.buff(155777)"}, "raid16" }, -- germ.
+{ "Rejuvenation", { "raid17.range <= 40","raid17.health <= 75","!raid17.buff(155777)"}, "raid17" }, -- germ.
+{ "Rejuvenation", { "raid18.range <= 40","raid18.health <= 75","!raid18.buff(155777)"}, "raid18" }, -- germ.
+{ "Rejuvenation", { "raid19.range <= 40","raid19.health <= 75","!raid19.buff(155777)"}, "raid19" }, -- germ.
+{ "Rejuvenation", { "raid20.range <= 40","raid20.health <= 75","!raid20.buff(155777)"}, "raid20" }, -- germ.
+{ "Rejuvenation", { "raid21.range <= 40","raid21.health <= 75","!raid21.buff(155777)"}, "raid21" }, -- germ.
 }, "talent(7,2)"},
 --Rejuv
-{ "Rejuvenation", { "raid1.range <= 40","!raid1.buff(Rejuvenation)", "raid1.health <= 82"}, "raid1" }, -- Rejuv.
-{ "Rejuvenation", { "!player.buff(Rejuvenation)", "player.health <= 82" }, "player" }, -- Rejuv.
-{ "Rejuvenation", { "raid2.range <= 40","!raid2.buff(Rejuvenation)", "raid2.health <= 82"}, "raid2" }, -- Rejuv.
-{ "Rejuvenation", { "raid3.range <= 40","!raid3.buff(Rejuvenation)", "raid3.health <= 82"}, "raid3" }, -- Rejuv.
-{ "Rejuvenation", { "raid4.range <= 40","!raid4.buff(Rejuvenation)", "raid4.health <= 82"}, "raid4" }, -- Rejuv.
-{ "Rejuvenation", { "raid5.range <= 40","!raid5.buff(Rejuvenation)", "raid5.health <= 82"}, "raid5" }, -- Rejuv.
-{ "Rejuvenation", { "raid6.range <= 40","!raid6.buff(Rejuvenation)", "raid6.health <= 82"}, "raid6" }, -- Rejuv.
-{ "Rejuvenation", { "raid7.range <= 40","!raid7.buff(Rejuvenation)", "raid7.health <= 82"}, "raid7" }, -- Rejuv.
-{ "Rejuvenation", { "raid8.range <= 40","!raid8.buff(Rejuvenation)", "raid8.health <= 82"}, "raid8" }, -- Rejuv.
-{ "Rejuvenation", { "raid9.range <= 40","!raid9.buff(Rejuvenation)", "raid9.health <= 82"}, "raid9" }, -- Rejuv.
-{ "Rejuvenation", { "raid10.range <= 40","!raid10.buff(Rejuvenation)", "raid10.health <= 82"}, "raid10" }, -- Rejuv.
-{ "Rejuvenation", { "raid11.range <= 40","!raid11.buff(Rejuvenation)", "raid11.health <= 82"}, "raid11" }, -- Rejuv.
-{ "Rejuvenation", { "raid12.range <= 40","!raid12.buff(Rejuvenation)", "raid12.health <= 82"}, "raid12" }, -- Rejuv.
-{ "Rejuvenation", { "raid13.range <= 40","!raid13.buff(Rejuvenation)", "raid13.health <= 82"}, "raid13" }, -- Rejuv.
-{ "Rejuvenation", { "raid14.range <= 40","!raid14.buff(Rejuvenation)", "raid14.health <= 82"}, "raid14" }, -- Rejuv.
-{ "Rejuvenation", { "raid15.range <= 40","!raid15.buff(Rejuvenation)", "raid15.health <= 82"}, "raid15" }, -- Rejuv.
-{ "Rejuvenation", { "raid16.range <= 40","!raid16.buff(Rejuvenation)", "raid16.health <= 82"}, "raid16" }, -- Rejuv.
-{ "Rejuvenation", { "raid17.range <= 40","!raid17.buff(Rejuvenation)", "raid17.health <= 82"}, "raid17" }, -- Rejuv.
-{ "Rejuvenation", { "raid18.range <= 40","!raid18.buff(Rejuvenation)", "raid18.health <= 82"}, "raid18" }, -- Rejuv.
-{ "Rejuvenation", { "raid19.range <= 40","!raid19.buff(Rejuvenation)", "raid19.health <= 82"}, "raid19" }, -- Rejuv.
-{ "Rejuvenation", { "raid20.range <= 40","!raid20.buff(Rejuvenation)", "raid20.health <= 82"}, "raid20" }, -- Rejuv.
-{ "Rejuvenation", { "raid21.range <= 40","!raid21.buff(Rejuvenation)", "raid21.health <= 82"}, "raid21" }, -- Rejuv.
-}, "modifier.raid"},
+{ "Rejuvenation", { "raid1.range <= 40","!raid1.buff(Rejuvenation)", "raid1.health <= 85"}, "raid1" }, -- Rejuv.
+{ "Rejuvenation", { "!player.buff(Rejuvenation)", "player.health <= 85" }, "player" }, -- Rejuv.
+{ "Rejuvenation", { "raid2.range <= 40","!raid2.buff(Rejuvenation)", "raid2.health <= 85"}, "raid2" }, -- Rejuv.
+{ "Rejuvenation", { "raid3.range <= 40","!raid3.buff(Rejuvenation)", "raid3.health <= 85"}, "raid3" }, -- Rejuv.
+{ "Rejuvenation", { "raid4.range <= 40","!raid4.buff(Rejuvenation)", "raid4.health <= 85"}, "raid4" }, -- Rejuv.
+{ "Rejuvenation", { "raid5.range <= 40","!raid5.buff(Rejuvenation)", "raid5.health <= 85"}, "raid5" }, -- Rejuv.
+{ "Rejuvenation", { "raid6.range <= 40","!raid6.buff(Rejuvenation)", "raid6.health <= 85"}, "raid6" }, -- Rejuv.
+{ "Rejuvenation", { "raid7.range <= 40","!raid7.buff(Rejuvenation)", "raid7.health <= 85"}, "raid7" }, -- Rejuv.
+{ "Rejuvenation", { "raid8.range <= 40","!raid8.buff(Rejuvenation)", "raid8.health <= 85"}, "raid8" }, -- Rejuv.
+{ "Rejuvenation", { "raid9.range <= 40","!raid9.buff(Rejuvenation)", "raid9.health <= 85"}, "raid9" }, -- Rejuv.
+{ "Rejuvenation", { "raid10.range <= 40","!raid10.buff(Rejuvenation)", "raid10.health <= 85"}, "raid10" }, -- Rejuv.
+{ "Rejuvenation", { "raid11.range <= 40","!raid11.buff(Rejuvenation)", "raid11.health <= 85"}, "raid11" }, -- Rejuv.
+{ "Rejuvenation", { "raid12.range <= 40","!raid12.buff(Rejuvenation)", "raid12.health <= 85"}, "raid12" }, -- Rejuv.
+{ "Rejuvenation", { "raid13.range <= 40","!raid13.buff(Rejuvenation)", "raid13.health <= 85"}, "raid13" }, -- Rejuv.
+{ "Rejuvenation", { "raid14.range <= 40","!raid14.buff(Rejuvenation)", "raid14.health <= 85"}, "raid14" }, -- Rejuv.
+{ "Rejuvenation", { "raid15.range <= 40","!raid15.buff(Rejuvenation)", "raid15.health <= 85"}, "raid15" }, -- Rejuv.
+{ "Rejuvenation", { "raid16.range <= 40","!raid16.buff(Rejuvenation)", "raid16.health <= 85"}, "raid16" }, -- Rejuv.
+{ "Rejuvenation", { "raid17.range <= 40","!raid17.buff(Rejuvenation)", "raid17.health <= 85"}, "raid17" }, -- Rejuv.
+{ "Rejuvenation", { "raid18.range <= 40","!raid18.buff(Rejuvenation)", "raid18.health <= 85"}, "raid18" }, -- Rejuv.
+{ "Rejuvenation", { "raid19.range <= 40","!raid19.buff(Rejuvenation)", "raid19.health <= 85"}, "raid19" }, -- Rejuv.
+{ "Rejuvenation", { "raid20.range <= 40","!raid20.buff(Rejuvenation)", "raid20.health <= 85"}, "raid20" }, -- Rejuv.
+{ "Rejuvenation", { "raid21.range <= 40","!raid21.buff(Rejuvenation)", "raid21.health <= 85"}, "raid21" }, -- Rejuv.
+}, {"modifier.raid","player.spell(Rejuvenation).casted <= 6"},},
 --!!!!!!!!!!!!!!!!!!!   END Rejuventation/germination RAID mode  !!!!!!!!!!!!!!!!!!!!!!!!!
 
+-----------------------------
+--REGROWTH OR HEALING TOUCH--
+-----------------------------
+---------------------------
+--       REGROWTH     --     -- REGROWTH IS BETTER THAN HEALING TOUCH IF GLYPHED
+---------------------------
+{{
+{{ 
+{"Regrowth",{"!player.moving","lowest.buff(Rejuvenation)","lowest.range <= 40", "lowest.health <= 50"}, "lowest"},
+{"Regrowth",{"!player.moving","tank.buff(Rejuvenation)","tank.range <= 40", "tank.health <= 65"}, "tank"},
+{"Regrowth",{"!player.moving","focus.buff(Rejuvenation)","focus.range <= 40", "focus.health <= 65"}, "focus"},
+},"!talent(7,2)"},
 
+{{--155777 is germination
+{"Regrowth",{"!player.moving","lowest.buff(155777)","lowest.range <= 40", "lowest.health <= 50"}, "lowest"},--155777 is Germination
+{"Regrowth",{"!player.moving","tank.buff(155777)","tank.range <= 40", "tank.health <= 65"}, "tank"},
+{"Regrowth",{"!player.moving","focus.buff(155777)","focus.range <= 40", "focus.health <= 65"}, "focus"},
+},"talent(7,2)"},
+
+},"glyph(116218)"},
+
+---------------------------
+--     HEALING TOUCH     ---- Healing touch is better if not glyphed (non emergency)
+---------------------------
+{{
+{{-- IF 
+{"Healing Touch",{"!player.moving","lowest.buff(Rejuvenation)","lowest.range <= 40", "lowest.health <= 70"}, "lowest"},
+{"Healing Touch",{"!player.moving","tank.buff(Rejuvenation)","tank.range <= 40", "tank.health <= 80"}, "tank"},
+{"Healing Touch",{"!player.moving","focus.buff(Rejuvenation)","focus.range <= 40", "focus.health <= 80"}, "focus"},
+},"!talent(7,2)"},
+
+{{--155777 is germination
+{"Healing Touch",{"!player.moving","lowest.buff(155777)","lowest.range <= 40", "lowest.health <= 70"}, "lowest"},--155777 is Germination
+{"Healing Touch",{"!player.moving","tank.buff(155777)","tank.range <= 40", "tank.health <= 80"}, "tank"},
+{"Healing Touch",{"!player.moving","focus.buff(155777)","focus.range <= 40", "focus.health <= 80"}, "focus"},
+},"talent(7,2)"},
+
+},"!glyph(116218)"},
 
 ---------------------------
 --      END MANA CHECK  --
@@ -386,8 +442,8 @@ ProbablyEngine.rotation.register_custom(105, "|cff00FFFFMacks|r - |cffFF7D0ARest
 { "Rejuvenation", {"tank.range <= 40","!tank.buff(774)", "tank.health <= 95"}, "tank" }, -- Rejuv.
 },"player.buff(117679)"},
 
-{"Wrath", {"!player.moving","target.enemy", "talent(6,2)"}},--WRATH IF DoC
-{"Wrath", {"!player.moving", "player.buff(124974)","target.enemy"}},--wrath if Nature Vigil
+{"Wrath", {"!player.moving","target.enemy", "talent(6,2)","target.range <= 40"}},--WRATH IF DoC
+{"Wrath", {"!player.moving", "player.buff(124974)","target.enemy","target.range <= 40"}},--wrath if Nature Vigil
 {"124974", {"talent(6,3)", "!player.buff(117679)"},},--natures vigil
 {"Healing Touch", {"!player.moving","tank.range <= 40", "tank.health <= 20"},"tank"},
 {"Healing Touch", {"!player.moving","lowest.range <= 40", "lowest.health <= 90"},"lowest"},
