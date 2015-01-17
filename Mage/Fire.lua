@@ -36,6 +36,7 @@ ProbablyEngine.rotation.register_custom(63, "|cff00FFFFMacks|r - [|cff69CCF0Fire
 ---------------------------
 -- Interrupts
 { "Counterspell", "modifier.interrupts" },
+{"!Inferno Blast",{"player.buff(Heating Up)", "!player.buff(Pyroblast!)","lastcast(Pyroblast)","player.spell(Pyroblast).casted >= 1","target.range <= 40"}, "target" },
 
 
 ---------------------------
@@ -89,7 +90,7 @@ ProbablyEngine.rotation.register_custom(63, "|cff00FFFFMacks|r - [|cff69CCF0Fire
 --    AUTO COMBUSTION    --
 ---------------------------
 
-{"Combustion",{"target.debuff(155158)","target.debuff(Ignite)","talent(7,3)", "player.spell(Pyroblast).casted >= 1"},"target"},
+{"Combustion",{"target.debuff(Pyroblast)","target.debuff(155158)","target.debuff(Ignite)","talent(7,3)", "player.spell(Pyroblast).casted >= 1"},"target"},
 {"Combustion",{"!player.buff(Pyroblast!)","target.debuff(Ignite)","talent(7,2)", "player.spell(Pyroblast).casted >= 3"},"target"},
 
 {"Inferno Blast",{"lastcast(Combustion)","modifier.multitarget", "!lastcast(Inferno Blast)"}, "target" },
