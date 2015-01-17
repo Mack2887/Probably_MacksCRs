@@ -27,7 +27,7 @@ ProbablyEngine.rotation.register_custom(262, "|cff00FFFFMacks|r - [|cff0000CDELE
 { "Blood Fury",{"player.buff(Ascendance)" },"player"}, 
 { "Berserking",{"player.buff(Ascendance)" },"player"}, 
 
-{{	-- Cooldowns
+{{	-- Cooldowns (thanks to Ake for this section)
 	{ "Ancestral Swiftness" },  
 	{ "Fire Elemental Totem" }, 
 	{ "Storm Elemental Totem" },  
