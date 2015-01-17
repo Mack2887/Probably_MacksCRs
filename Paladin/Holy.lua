@@ -12,7 +12,7 @@ ProbablyEngine.library.register('coreHealing', {
   end,
 })
 
-ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly v1.2|r]", {
+ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly v1.3|r]", {
 
 
 --{"",{""},""},
@@ -145,8 +145,6 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 --105809 Holy avenger
 {"Light of Dawn",{"!player.moving","@coreHealing.needsHealing(96,2)", "lowest.range <= 40","player.buff(90174)"},"tank"},
 --add agro too SS
-{"Sacred Shield",{"player.spell(Holy Shock).cooldown > 1","!lastcast(Sacred Shield)","tank.buff(148039).duration <= 5","tank.range <= 40", "tank.health <= 99" },"tank"},
-{"Sacred Shield",{"player.spell(Holy Shock).cooldown > 1","!lastcast(Sacred Shield)","lowest.range <= 40", "lowest.buff(148039).duration <= 5","player.spell(Sacred Shield).charges >= 1", "lowest.health <= 90"},"lowest"},
 
 
 
@@ -157,6 +155,16 @@ ProbablyEngine.rotation.register_custom(65, "|cff00FFFFMacks|r - [|cffF58CBAHoly
 {"Light of Dawn",{"!player.moving","player.holypower >= 3","@coreHealing.needsHealing(88,5)", "lowest.range <= 40"},"lowest"},
 {"Light of Dawn",{"!player.moving","player.holypower >= 3","@coreHealing.needsHealing(80,3)", "lowest.range <= 40"},"lowest"},
 {"Light of Dawn",{"!player.moving","player.holypower >= 3","@coreHealing.needsHealing(75,2)", "lowest.range <= 40"},"lowest"},
+
+{"Sacred Shield",{"player.spell(Holy Shock).cooldown > 1","!lastcast(Sacred Shield)","tank.buff(148039).duration <= 5","tank.range <= 40", "tank.health <= 99" },"tank"},
+{"Sacred Shield",{"player.spell(Holy Shock).cooldown > 1","!lastcast(Sacred Shield)","lowest.range <= 40", "lowest.buff(148039).duration <= 5","player.spell(Sacred Shield).charges >= 1", "lowest.health <= 95"},"lowest"},
+{"Sacred Shield",{"player.holypower = 5","!lastcast(Sacred Shield)","tank.buff(148039).duration <= 5","tank.range <= 40", "tank.health <= 99" },"tank"},
+{"Sacred Shield",{"player.holypower = 5","!lastcast(Sacred Shield)","lowest.range <= 40", "lowest.buff(148039).duration <= 5","player.spell(Sacred Shield).charges >= 1", "lowest.health <= 95"},"lowest"},
+
+
+
+
+
 {{
 {"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(75,6)","player.holypower < 5","!player.buff(105809)"},"lowest"},
 {"Holy Radiance",{"player.mana >= 20","@coreHealing.needsHealing(75,6)","player.holypower < 3","player.buff(105809)"},"lowest"},
